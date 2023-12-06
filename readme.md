@@ -1,25 +1,12 @@
-# Branche develop
+# Branche UML_diagramme_de_classes
 
 ## Objectif 
 
-Dans cette branche nous récupérons tout les versions de développement des différentes features de l'application.
+Dans cette branche nous développons l'aspect conceptuel et analyse de la v1 de l'application, le but est de penser comment développer plutôt que développer à l'aveugle en premier lieu.
 
-## Membres 
+## DEVELOPPEMENT
 
-MARMION Steven 
-SIMON Gael
+On focalise sur un outil nommé boUML, outil scolaire mais qui permet de faire des chose sutiles pour notre projet comme le reverse engineering, la génération de code et surtout car c'est un outil "universel" pour l'université en partant du principe que tout le monde y à accès et que l'outil est connu de tout le monde.
 
-## Rendus 
 
-### Rendus intermédiaire
-
-Rendu d'un diagramme de classe de conception
-Rendu d'un prototype de l'application qui permet de faire communiquer client-serveur
-
-### Rendu final
-
-Rendu du diagramme de classes final
-Rendu de la version finale fonctionnelle de l'application
-Redaction d'un rapport de conception
-Documentation javadoc
 
