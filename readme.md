@@ -1,25 +1,10 @@
-# Branche develop
+# **SAE SYSTEME/RESEAU**
 
-## Objectif 
+## Membres
 
-Dans cette branche nous récupérons tout les versions de développement des différentes features de l'application.
-
-## Membres 
-
-MARMION Steven 
+Marmion Steven
 SIMON Gael
 
-## Rendus 
+## Branche
 
-### Rendus intermédiaire
-
-Rendu d'un diagramme de classe de conception
-Rendu d'un prototype de l'application qui permet de faire communiquer client-serveur
-
-### Rendu final
-
-Rendu du diagramme de classes final
-Rendu de la version finale fonctionnelle de l'application
-Redaction d'un rapport de conception
-Documentation javadoc
-
+Cette branche accueillera les versionnages de développement. Elle permettra de reccueillir les différentes versions des implémentations de l'application en incrémental. Pas de versionnage de production !
