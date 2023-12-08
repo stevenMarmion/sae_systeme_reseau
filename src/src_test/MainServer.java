@@ -25,7 +25,18 @@ public class MainServer {
 
         try {
             mainServer.setIpServer("192.168.0.2"); //true
-            mainServer.setIpServer("192.168.0.2"); // lance une erreur car le serveur est d&jà sur cette IP.
+            mainServer.setIpServer("192.168.0.2"); // lance une erreur car le serveur est déjà sur cette IP.
         } catch (Exception e) {}
+
+        try {
+            mainServer.setIpServer("0.0.0"); // lance l'exception de l'adresse IP non valide
+            mainServer.setIpServer("256.0.0.1"); // lance l'exception de l'adresse IP non valide
+            mainServer.setIpServer("192.168.0.257"); // lance l'exception de l'adresse IP non valide
+        } catch (Exception e) {} 
+
+        try {
+            mainServer.setIpServer(""); // lance l'exception de l'adresse IP vide
+            mainServer.setIpServer(null); // lance l'exception de l'adresse IP vide
+        } catch (Exception e) {} 
     }
 }
