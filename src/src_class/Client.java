@@ -1,4 +1,7 @@
+package src_class;
 import java.util.ArrayList;
+
+import src_exception.ExceptionFollowUser;
 
 public class Client {
     private String ip;
@@ -11,7 +14,7 @@ public class Client {
      * @param ip L'adresse IP associée au client.
      * @param username Le nom d'utilisateur du client.
      */
-    Client(String ip, String username) {
+    public Client(String ip, String username) {
         this.ip = ip;
         this.username = username;
         this.abonnement = new ArrayList<>();
@@ -22,7 +25,7 @@ public class Client {
      * Récupère l'adresse IP du client.
      * @return L'adresse IP du client.
      */
-    String getIp() {
+    public String getIp() {
         return this.ip;
     }
 
@@ -30,7 +33,7 @@ public class Client {
      * Récupère le nom d'utilisateur du client.
      * @return Le nom d'utilisateur du client.
      */
-    String getUsername() {
+    public String getUsername() {
         return this.username;
     }
 
@@ -38,7 +41,7 @@ public class Client {
      * Récupère la liste des personnes suivies par le client.
      * @return La liste des personnes suivies par le client.
      */
-    ArrayList<Client> getAbonnement() {
+    public ArrayList<Client> getAbonnement() {
         return this.abonnement;
     }
 
@@ -46,7 +49,7 @@ public class Client {
      * Récupère la liste des abonnés du client.
      * @return La liste des abonnés du client.
      */
-    ArrayList<Client> getAbonnes() {
+    public ArrayList<Client> getAbonnes() {
         return this.abonnes;
     }
 
@@ -56,7 +59,7 @@ public class Client {
      * @return true si l'ajout a réussi, sinon lance une exception.
      * @throws ExceptionFollowUser si l'utilisateur est déjà suivi par ce client.
      */
-    boolean ajouteAbonnement(Client utilisateur) throws ExceptionFollowUser {
+    public boolean ajouteAbonnement(Client utilisateur) throws ExceptionFollowUser {
         if (!getAbonnement().contains(utilisateur)) {
             getAbonnement().add(utilisateur);
             return true;
@@ -69,7 +72,7 @@ public class Client {
      * @param utilisateur Le client à ajouter à la liste des abonnés.
      * @return true si l'ajout a réussi, sinon false.
      */
-    boolean ajouteAbonne(Client utilisateur) {
+    public boolean ajouteAbonne(Client utilisateur) {
         if (!getAbonnes().contains(utilisateur)) {
             getAbonnes().add(utilisateur);
             return true;
@@ -81,7 +84,7 @@ public class Client {
      * Met à jour l'adresse IP du client.
      * @param newIp La nouvelle adresse IP à définir.
      */
-    void setIp(String newIp) {
+    public void setIp(String newIp) {
         if (!getIp().equals(newIp)) {
             this.ip = newIp;
         }
@@ -91,7 +94,7 @@ public class Client {
      * Met à jour le nom d'utilisateur du client.
      * @param newUsername Le nouveau nom d'utilisateur à définir.
      */
-    void setUsername(String newUsername) {
+    public void setUsername(String newUsername) {
         if (!getUsername().equals(newUsername)) {
             this.username = newUsername;
         }
