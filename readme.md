@@ -7,4 +7,4 @@ SIMON Gael
 
 ## Branche
 
-Cette branche accueillera les versionnages de développement. Elle permettra de reccueillir les différentes versions des implémentations de l'application en incrémental. Pas de versionnage de production !
+Cette branche est exclusivement utile au développement de la classe Client de l'application. Une instance qui prend les paramètres utiles à notre connexion et à l'envoie des message sur l'application.
