@@ -3,7 +3,7 @@ package src_test;
 import src_class.Client;
 import src_exception.ExceptionFollowUser;
 
-public class Main {
+public class MainClient {
     public static void main(String[] args) {
         Client premierClient = new Client("127.0.0.1", "steven");
         Client deuxiemeClient = new Client("192.168.0.1", "gael");
