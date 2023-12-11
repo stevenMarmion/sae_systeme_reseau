@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.net.InetAddress;
 
@@ -121,7 +122,7 @@ public class Client {
 
     public void ecrireMessage() {
         try {
-            Socket socket = new Socket("127.0.0.1", 4445);
+            Socket socket = new Socket("localhost", 5555);
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
             writer.println("Hello world!");
             writer.flush();
@@ -152,5 +153,10 @@ public class Client {
     @Override
     public String toString() {
         return "Client d'ip : " + getIp() + " et de username : " + getUsername();
+    }
+
+    public static void main(String[] args) throws UnknownHostException {
+        Client client = new Client(InetAddress.getByName("localhost"), "steven");
+        client.ecrireMessage();
     }
 }

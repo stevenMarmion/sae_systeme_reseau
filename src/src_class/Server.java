@@ -1,28 +1,30 @@
 package src_class;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import src_exception.ExceptionCommandesAlreadyAdd;
 import src_exception.ExceptionIpAlreadyDefined;
 import src_exception.ExceptionIpEmpty;
 
 public class Server {
-    private String ipServer;
+    private InetAddress ipServer;
     private ArrayList<String> commandesServer;
 
-    public Server(String ip, ArrayList<String> commandesServer) {
+    public Server(InetAddress ip, ArrayList<String> commandesServer) {
         this.ipServer = ip;
         this.commandesServer = commandesServer;
     }
 
-    public Server(String ip) {
+    public Server(InetAddress ip) {
         this.ipServer = ip;
         this.commandesServer = new ArrayList<>();
     }
 
-    public String getIpServer() {
+    public InetAddress getIpServer() {
         return this.ipServer;
     } 
 
@@ -30,8 +32,8 @@ public class Server {
         return this.commandesServer;
     }
 
-    public boolean setIpServer(String ip) throws ExceptionIpAlreadyDefined, ExceptionIpEmpty {
-        if (ip.isEmpty()) {
+    public boolean setIpServer(InetAddress ip) throws ExceptionIpAlreadyDefined, ExceptionIpEmpty {
+        if (ip.isAnyLocalAddress()) {
             throw new ExceptionIpEmpty();
         }
         else if (!getIpServer().equals(ip)) {
@@ -72,7 +74,7 @@ public class Server {
         }
     }
 
-    public boolean verifieIP(String ip) {
+    public boolean verifieIP(InetAddress ip) {
         // A compléter avec la classe de verification d'IP
         return true;
     }
@@ -82,6 +84,7 @@ public class Server {
             ServerSocket socketServer = new ServerSocket(numPort);
             Socket socketClient = socketServer.accept();
             System.out.println("connexion d'un client");
+            System.out.println(socketClient.getInputStream().read());
             socketClient.close();
             socketServer.close();
         }catch (IOException e) {
@@ -92,5 +95,12 @@ public class Server {
     @Override
     public String toString() {
         return "Serveur définit par l'IP : " + getIpServer() + ", liste des commandes : " + getCommandesServer();
+    }
+
+    public static void main(String[] args) throws UnknownHostException {
+        Server server = new Server(InetAddress.getByName("localhost"));
+        while (true) {
+            server.enAttenteConnexion(5555);   
+        }
     }
 }
