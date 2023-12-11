@@ -1,5 +1,8 @@
 package src_class;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import src_exception.ExceptionCommandesAlreadyAdd;
 import src_exception.ExceptionIpAlreadyDefined;
@@ -72,6 +75,18 @@ public class Server {
     public boolean verifieIP(String ip) {
         // A compléter avec la classe de verification d'IP
         return true;
+    }
+
+    public void enAttenteConnexion(int numPort) {
+        try {
+            ServerSocket socketServer = new ServerSocket(numPort);
+            Socket socketClient = socketServer.accept();
+            System.out.println("connexion d'un client");
+            socketClient.close();
+            socketServer.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

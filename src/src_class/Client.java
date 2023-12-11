@@ -1,10 +1,16 @@
 package src_class;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.net.InetAddress;
 
 import src_exception.ExceptionFollowUser;
 
 public class Client {
-    private String ip;
+    private InetAddress ip;
     private String username;
     private ArrayList<Client> abonnement;
     private ArrayList<Client> abonnes;
@@ -14,7 +20,7 @@ public class Client {
      * @param ip L'adresse IP associée au client.
      * @param username Le nom d'utilisateur du client.
      */
-    public Client(String ip, String username) {
+    public Client(InetAddress ip, String username) {
         this.ip = ip;
         this.username = username;
         this.abonnement = new ArrayList<>();
@@ -25,7 +31,7 @@ public class Client {
      * Récupère l'adresse IP du client.
      * @return L'adresse IP du client.
      */
-    public String getIp() {
+    public InetAddress getIp() {
         return this.ip;
     }
 
@@ -84,7 +90,7 @@ public class Client {
      * Met à jour l'adresse IP du client.
      * @param newIp La nouvelle adresse IP à définir.
      */
-    public void setIp(String newIp) {
+    public void setIp(InetAddress newIp) {
         if (!getIp().equals(newIp)) {
             this.ip = newIp;
         }
@@ -97,6 +103,31 @@ public class Client {
     public void setUsername(String newUsername) {
         if (!getUsername().equals(newUsername)) {
             this.username = newUsername;
+        }
+    }
+
+    public void lireMessage() {
+        try {
+            Socket socket = new Socket("127.0.0.1", 4445);
+            InputStreamReader stream = new InputStreamReader(socket.getInputStream());
+            BufferedReader reader = new BufferedReader(stream);
+            String message = reader.readLine();
+            System.out.println(message);
+            socket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ecrireMessage() {
+        try {
+            Socket socket = new Socket("127.0.0.1", 4445);
+            PrintWriter writer = new PrintWriter(socket.getOutputStream());
+            writer.println("Hello world!");
+            writer.flush();
+            socket.close();
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
