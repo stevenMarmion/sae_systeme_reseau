@@ -1,10 +1,10 @@
 package src_class;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.net.InetAddress;
 
@@ -120,11 +120,11 @@ public class Client {
         }
     }
 
-    public void ecrireMessage() {
+    public void ecrireMessage(String message) {
         try {
             Socket socket = new Socket("localhost", 5555);
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
-            writer.println("Hello world!");
+            writer.println(message);
             writer.flush();
             socket.close();
         }catch (Exception e) {
@@ -155,8 +155,8 @@ public class Client {
         return "Client d'ip : " + getIp() + " et de username : " + getUsername();
     }
 
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args) throws IOException {
         Client client = new Client(InetAddress.getByName("localhost"), "steven");
-        client.ecrireMessage();
+        client.ecrireMessage("On teste");
     }
 }

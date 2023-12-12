@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
+
 import src_exception.ExceptionCommandesAlreadyAdd;
 import src_exception.ExceptionIpAlreadyDefined;
 import src_exception.ExceptionIpEmpty;
@@ -84,7 +84,6 @@ public class Server {
             ServerSocket socketServer = new ServerSocket(numPort);
             Socket socketClient = socketServer.accept();
             System.out.println("connexion d'un client");
-            System.out.println(socketClient.getInputStream().read());
             socketClient.close();
             socketServer.close();
         }catch (IOException e) {
@@ -97,10 +96,10 @@ public class Server {
         return "Serveur définit par l'IP : " + getIpServer() + ", liste des commandes : " + getCommandesServer();
     }
 
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args) throws IOException {
         Server server = new Server(InetAddress.getByName("localhost"));
         while (true) {
-            server.enAttenteConnexion(5555);   
+            server.enAttenteConnexion(5555);
         }
     }
 }
