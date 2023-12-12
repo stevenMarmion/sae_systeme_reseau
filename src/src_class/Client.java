@@ -2,12 +2,14 @@ package src_class;
 import java.util.ArrayList;
 
 import src_exception.ExceptionFollowUser;
+import src_exception.ExceptionUnfollowUser;
+import src_exception.ExceptionUnfoundMessage;
 
 public class Client {
     private String ip;
     private String username;
-    private ArrayList<Client> abonnement;
-    private ArrayList<Client> abonnes;
+    private ArrayList<String> abonnement;
+    private ArrayList<String> abonnes;
 
     /**
      * Constructeur de la classe Client.
@@ -41,7 +43,7 @@ public class Client {
      * Récupère la liste des personnes suivies par le client.
      * @return La liste des personnes suivies par le client.
      */
-    public ArrayList<Client> getAbonnement() {
+    public ArrayList<String> getAbonnement() {
         return this.abonnement;
     }
 
@@ -49,8 +51,36 @@ public class Client {
      * Récupère la liste des abonnés du client.
      * @return La liste des abonnés du client.
      */
-    public ArrayList<Client> getAbonnes() {
+    public ArrayList<String> getAbonnes() {
         return this.abonnes;
+    }
+
+    /**
+     * permet de vérifier si l'identifiant fourni corresponds bien a un des messages du client
+     * @param idMessage identifiant du message 
+     * @return le message si il existe , lance une exception si il n'existe pas 
+     * @throws ExceptionUnfoundMessage aucun message avce cet identifiant trouver
+     */
+    public boolean vérifMessage(int idMessage) throws ExceptionUnfoundMessage{
+        for(Message m : this.mesMessage){
+            if(m.getId==idMessage){
+                return m;
+            }
+        }
+        throw new ExceptionUnfoundMessage(idMessage+"");
+    }
+    /**
+     * permet de supprimer un message
+     * @param idMessage l'identifiant du message a supprimer
+     * @return true si le message a été supprimer et false si il ne la pas été
+     */
+    public boolean supprimerMessage(int idMessage){
+        try {
+            Message m = vérifMessage(idMessage);
+            return this.mesMessage.remove(m);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
@@ -59,12 +89,25 @@ public class Client {
      * @return true si l'ajout a réussi, sinon lance une exception.
      * @throws ExceptionFollowUser si l'utilisateur est déjà suivi par ce client.
      */
-    public boolean ajouteAbonnement(Client utilisateur) throws ExceptionFollowUser {
+    public boolean ajouteAbonnement(String utilisateur) throws ExceptionFollowUser {
         if (!getAbonnement().contains(utilisateur)) {
             getAbonnement().add(utilisateur);
             return true;
         }
         throw new ExceptionFollowUser(utilisateur);
+    }
+    /**
+     * supprime une personne suivie par le client
+     * @param utilisateur le client a supprimer des personnes suivies.
+     * @return true si la suppression a réussi, sinon lance une exception.
+     * @throws ExceptionUnfollowUsersi l'utilisateur n'est pas suivie par l'utilisateur.
+     */
+    public boolean supprimeAbonnement(String utilisateur) throws ExceptionUnfollowUser {
+        if (!getAbonnement().contains(utilisateur)) {
+            getAbonnement().add(utilisateur);
+            return true;
+        }
+        throw new ExceptionUnfollowUser(utilisateur);
     }
 
     /**
@@ -72,7 +115,7 @@ public class Client {
      * @param utilisateur Le client à ajouter à la liste des abonnés.
      * @return true si l'ajout a réussi, sinon false.
      */
-    public boolean ajouteAbonne(Client utilisateur) {
+    public boolean ajouteAbonne(String utilisateur) {
         if (!getAbonnes().contains(utilisateur)) {
             getAbonnes().add(utilisateur);
             return true;
