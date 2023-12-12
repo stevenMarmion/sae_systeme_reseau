@@ -1,14 +1,10 @@
-# Branche UML_diagramme_de_classes
+# **SAE SYSTEME/RESEAU**
 
-## Membres de développement
+## Membres
 
-- MARMION Steven
-- SIMON Gael
+Marmion Steven
+SIMON Gael
 
-## Objectif
+## Branche
 
-Dans cette branche nous développons l'aspect conceptuel et analyse de la v1 de l'application, le but est de penser comment développer plutôt que développer à l'aveugle en premier lieu.
-
-## DEVELOPPEMENT
-
-On focalise sur un outil nommé boUML, outil scolaire mais qui permet de faire des chose sutiles pour notre projet comme le reverse engineering, la génération de code et surtout car c'est un outil "universel" pour l'université en partant du principe que tout le monde y à accès et que l'outil est connu de tout le monde.
+Cette branche est exclusivement utile au développement de la classe Client de l'application. Une instance qui prend les paramètres utiles à notre connexion et à l'envoie des message sur l'application.
