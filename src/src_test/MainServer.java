@@ -1,12 +1,14 @@
 package src_test;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import src_class.Server;
 import src_exception.ExceptionCommandesAlreadyAdd;
 
 public class MainServer {
-    public static void main(String[] args) {
-        Server mainServer = new Server("192.168.0.1");
+    public static void main(String[] args) throws UnknownHostException {
+        Server mainServer = new Server(InetAddress.getByName("localhost"));
 
         ArrayList<String> listeCommandes = new ArrayList<>();
         String commande1 = "delete";
@@ -24,8 +26,8 @@ public class MainServer {
         } catch (ExceptionCommandesAlreadyAdd e) {}
 
         try {
-            mainServer.setIpServer("192.168.0.2"); //true
-            mainServer.setIpServer("192.168.0.2"); // lance une erreur car le serveur est d&jà sur cette IP.
+            mainServer.setIpServer(InetAddress.getByName("192.168.0.2")); //true
+            mainServer.setIpServer(InetAddress.getByName("192.168.0.2")); // lance une erreur car le serveur est d&jà sur cette IP.
         } catch (Exception e) {}
     }
 }
