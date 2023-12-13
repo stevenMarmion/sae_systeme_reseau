@@ -1,6 +1,6 @@
 format 224
 "DIAGRAMME_CLASSE_V1"
-  revision 2
+  revision 3
   modified_by 2 "o22202479"
   java_root_dir "/home/iut45/Etudiants/o22202479/WinHome/SAE/sae_systeme_reseau/src/"
 
@@ -9,7 +9,7 @@ format 224
   // class settings
   default_attribute_visibility private default_relation_visibility private default_operation_visibility public
   
-  classdiagramsettings draw_all_relations yes hide_attributes no hide_operations no hide_getset_operations no hide_ports no show_members_full_definition yes show_members_visibility yes show_members_stereotype yes show_members_context no show_members_multiplicity no show_members_initialization no show_attribute_modifiers no member_max_width 127 show_parameter_dir yes show_parameter_name yes package_name_in_tab no class_drawing_mode natural drawing_language uml show_context_mode no auto_label_position yes show_relation_modifiers no show_relation_visibility yes show_infonote no shadow yes gradient none show_stereotype_properties no end
+  classdiagramsettings draw_all_relations yes hide_attributes no hide_operations no hide_getset_operations no hide_ports no show_members_full_definition yes show_members_visibility yes show_members_stereotype yes show_members_context no show_members_multiplicity no show_members_initialization no show_attribute_modifiers no member_max_width 127 show_parameter_dir yes show_parameter_name yes package_name_in_tab no class_drawing_mode natural drawing_language uml show_context_mode no auto_label_position yes show_relation_modifiers yes show_relation_visibility yes show_infonote no shadow yes gradient none show_stereotype_properties no end
   
   classcompositediagramsettings auto_label_position yes draw_all_relations yes shadow yes gradient none end
   
@@ -84,7 +84,7 @@ ${members}}
       
       classrelation 128002 // clients (<composition>)
 	relation 128002 *---
-	  stereotype "map"
+	  stereotype "list"
 	  a role_name "clients" multiplicity "*" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
 "
@@ -94,17 +94,21 @@ ${members}}
 "
 	    classrelation_ref 128130 // <composition>
 	  association_type class_ref 128130 // Client
+	get_oper operation_ref 145794 // get_clients
+	set_oper operation_ref 145922 // set_clients
       end
 
       classrelation 129794 // commandesServer (<unidirectional association>)
 	relation 129282 --->
-	  stereotype "enum"
+	  stereotype "list"
 	  a role_name "commandesServer" multiplicity "*" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
 "
 	    classrelation_ref 129794 // commandesServer (<unidirectional association>)
 	  b parent class_ref 128258 // Commande
 	  association_type class_ref 128258 // Commande
+	get_oper operation_ref 146050 // get_commandesServer
+	set_oper operation_ref 146178 // set_commandesServer
       end
 
       attribute 129538 "ipServeur"
@@ -118,6 +122,8 @@ ${members}}
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
+	get_oper operation_ref 146306 // get_ipServeur
+	set_oper operation_ref 146434 // set_ipServeur
       end
 
       operation 139010 "Afficher"
@@ -126,6 +132,190 @@ ${members}}
 	nparams 0
 	
 	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 145538 "Server"
+	public explicit_return_type ""
+	multiplicity "1"
+	nparams 3
+	  param in name "ip" explicit_type "InetAdress"
+	multiplicity "1"
+	  param in name "commandesServer" explicit_type "List"
+	multiplicity "1"
+	  param in name "clients" explicit_type "List<Clients>"
+	multiplicity "1"
+	
+	java_def "  ${comment}${@}${visibility}${final}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${throws} {
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 145666 "Server"
+	public explicit_return_type ""
+	multiplicity "1"
+	nparams 1
+	  param in name "ip" explicit_type "InetAdress"
+	multiplicity "1"
+	
+	java_def "  ${comment}${@}${visibility}${final}${synchronized}${name}${(}${t0} ${p0}${)}${throws} {
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 145794 "get_clients"
+	stereotype "list"
+	force_body_gen const cpp_inline public return_type class_ref 128130 // Client
+	multiplicity "*"
+	nparams 0
+	
+	cpp_name_spec "get_${name}"
+	final java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${stereotype}<${type}> ${name}${(}${)}${throws}${staticnl}{
+  return clients;
+}
+"
+	java_name_spec "get${Name}"
+	php_final 
+	php_name_spec "get${Name}"
+	
+	python_name_spec "get${Name}"
+	
+	idl_name_spec "get_${name}"
+	get_of_relation classrelation_ref 128002 // clients (<composition>)
+      end
+
+      operation 145922 "set_clients"
+	stereotype "list"
+	force_body_gen public explicit_return_type "void"
+	multiplicity "*"
+	nparams 1
+	  param in name "value" type class_ref 128130 // Client
+	
+	cpp_name_spec "set_${name}"
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${stereotype}<${t0}> ${p0}${)}${throws}${staticnl}{
+  clients = ${p0};
+}
+"
+	java_name_spec "set${Name}"
+	
+	php_name_spec "set${Name}"
+	
+	python_name_spec "set${Name}"
+	
+	idl_name_spec "set_${name}"
+	set_of_relation classrelation_ref 128002 // clients (<composition>)
+      end
+
+      operation 146050 "get_commandesServer"
+	stereotype "list"
+	force_body_gen const cpp_inline public return_type class_ref 128258 // Commande
+	multiplicity "*"
+	nparams 0
+	
+	cpp_name_spec "get_${name}"
+	final java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${stereotype}<${type}> ${name}${(}${)}${throws}${staticnl}{
+  return commandesServer;
+}
+"
+	java_name_spec "get${Name}"
+	php_final 
+	php_name_spec "get${Name}"
+	
+	python_name_spec "get${Name}"
+	
+	idl_name_spec "get_${name}"
+	get_of_relation classrelation_ref 129794 // commandesServer (<unidirectional association>)
+      end
+
+      operation 146306 "get_ipServeur"
+	force_body_gen const cpp_inline public explicit_return_type "string"
+	multiplicity "1"
+	nparams 0
+	
+	cpp_name_spec "get_${name}"
+	final java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  return ipServeur;
+}
+"
+	java_name_spec "get${Name}"
+	php_final 
+	php_name_spec "get${Name}"
+	
+	python_name_spec "get${Name}"
+	
+	idl_name_spec "get_${name}"
+	get_of_attribute attribute_ref 129538 // ipServeur
+      end
+
+      operation 146434 "set_ipServeur"
+	force_body_gen public explicit_return_type "void"
+	multiplicity "1"
+	nparams 1
+	  param in name "value" explicit_type "string"
+	
+	cpp_name_spec "set_${name}"
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ipServeur = ${p0};
+}
+"
+	java_name_spec "set${Name}"
+	
+	php_name_spec "set${Name}"
+	
+	python_name_spec "set${Name}"
+	
+	idl_name_spec "set_${name}"
+	set_of_attribute attribute_ref 129538 // ipServeur
+      end
+
+      operation 146562 "ajouteNouvelleCommandesServer"
+	public explicit_return_type "bool"
+	multiplicity "1"
+	nparams 1
+	  param in name "newCommande" type class_ref 128258 // Commande
+	multiplicity "1"
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 146690 "ajouteListCommandes"
+	public explicit_return_type "bool"
+	multiplicity "1"
+	nparams 1
+	  param in name "listeCommandes" explicit_type "List<Commande>"
+	multiplicity "1"
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 146818 "enAttenteConnexion"
+	public explicit_return_type "void"
+	multiplicity "1"
+	nparams 1
+	  param in name "port" explicit_type "int"
+	multiplicity "1"
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
   ${body}}
 "
 	
@@ -229,7 +419,7 @@ ${members}}
 
       classrelation 129666 // commandesClients (<unidirectional association>)
 	relation 129154 --->
-	  stereotype "enum"
+	  stereotype "list"
 	  a role_name "commandesClients" multiplicity "*" private
 	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
 "
@@ -256,7 +446,7 @@ ${members}}
       end
 
       operation 136706 "get_"
-	stereotype "map"
+	stereotype "list"
 	force_body_gen const cpp_inline public return_type class_ref 128002 // Server
 	nparams 0
 	
@@ -276,7 +466,7 @@ ${members}}
       end
 
       operation 136834 "set_"
-	stereotype "map"
+	stereotype "list"
 	force_body_gen public explicit_return_type "void"
 	nparams 1
 	  param in name "value" type class_ref 128002 // Server
@@ -508,7 +698,7 @@ ${members}}
       end
 
       operation 138242 "get_commandesClients"
-	stereotype "enum"
+	stereotype "list"
 	force_body_gen const cpp_inline public return_type class_ref 128258 // Commande
 	multiplicity "*"
 	nparams 0
@@ -529,7 +719,7 @@ ${members}}
       end
 
       operation 138370 "set_commandesClients"
-	stereotype "enum"
+	stereotype "list"
 	force_body_gen public explicit_return_type "void"
 	multiplicity "*"
 	nparams 1
@@ -609,6 +799,75 @@ ${members}}
 	nparams 0
 	
 	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      classrelation 136450 // messagesRecu (<unidirectional association>)
+	relation 135938 --->
+	  stereotype "list"
+	  a role_name "messagesRecu" multiplicity "*" ordered private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	    classrelation_ref 136450 // messagesRecu (<unidirectional association>)
+	  b parent class_ref 128386 // Message
+	  association_type class_ref 128386 // Message
+      end
+
+      operation 146946 "ajouteAbonnement"
+	public explicit_return_type "bool"
+	multiplicity "1"
+	nparams 1
+	  param in name "utilisateur" type class_ref 128130 // Client
+	multiplicity "1"
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 147074 "ajouteAbonnes"
+	public explicit_return_type "bool"
+	multiplicity "1"
+	nparams 1
+	  param in name "utilisateur" type class_ref 128130 // Client
+	multiplicity "1"
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 147202 "recevoirMessage"
+	public explicit_return_type "void"
+	multiplicity "1"
+	nparams 0
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+      end
+
+      operation 147330 "ecrireMessage"
+	public explicit_return_type "void"
+	multiplicity "1"
+	nparams 1
+	  param in name "message" explicit_type "String"
+	multiplicity "1"
+	
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
   ${body}}
 "
 	
@@ -1056,7 +1315,7 @@ ${members}}
       end
     end
 
-    class 128514 "CommandeDelete"
+    class 128514 "CommandeDeleteClient"
       visibility package 
       cpp_decl ""
       java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
@@ -1157,6 +1416,27 @@ ${members}}
 	  a public
 	    java "${type}"
 	    classrelation_ref 129922 // <generalisation>
+	  b parent class_ref 128258 // Commande
+      end
+    end
+
+    class 135554 "CommandeDeleteServer"
+      visibility package 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 136578 // <generalisation>
+	relation 136066 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 136578 // <generalisation>
 	  b parent class_ref 128258 // Commande
       end
     end
