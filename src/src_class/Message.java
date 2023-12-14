@@ -19,7 +19,7 @@ public class Message {
         this.nombreLike=nombreLike;
 
     }
-
+    // getteur et setteur de la classe message
     public String getContenu() {
         return contenu;
     }
@@ -60,6 +60,17 @@ public class Message {
         this.identifiantPost = identifiantPost;
     }
 
+    // méthode métier
+    /**
+     * cet methode permet d'incrementer de 1 le nombre de like
+     */
+    public void incrementLike(){
+        this.nombreLike++;
+    }
+    /**
+     * cet methode permet d'obtenir le message sous forme de String recevable par le serveur (avec la syntaxe correcte)
+     * @return  le message recevable par le serveur
+     */
     public String ecritureMessage(){
         String data="message : \n contenu : '"+this.contenu+"' \n expediteur : '"+this.nomExpediteur+"' \n date : '"+this.date+"' \n nombreLike : '"+this.nombreLike+"' \n id : '"+this.identifiantPost+"'";
         return data;
