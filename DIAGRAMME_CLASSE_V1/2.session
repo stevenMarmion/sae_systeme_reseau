@@ -1,15 +1,12 @@
-window_sizes 1600 851 375 1219 741 58
+window_sizes 1920 1009 375 1539 897 60
 cleanlooks_style
 diagrams
   active  classdiagram_ref 128002 // DIAGRAMME_V1
-    1219 741 100 A4 68 0
+    1539 897 90 A0 0 0
 end
 show_stereotypes
-selected attribute_ref 129538 // ipServeur
+selected class_ref 142082 // Session
 open
-  class_ref 128002 // Server
-  class_ref 128130 // Client
-  class_ref 128258 // Commande
-  class_ref 128386 // Message
+  classview_ref 128002 // DIAGRAMME_CLASSE
 end
 end

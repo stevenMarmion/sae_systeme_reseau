@@ -1,7 +1,7 @@
 format 224
 "DIAGRAMME_CLASSE_V1"
-  revision 3
-  modified_by 2 "o22202479"
+  revision 4
+  modified_by 2 "marmi"
   java_root_dir "/home/iut45/Etudiants/o22202479/WinHome/SAE/sae_systeme_reseau/src/"
 
 
@@ -108,7 +108,6 @@ ${members}}
 	  b parent class_ref 128258 // Commande
 	  association_type class_ref 128258 // Commande
 	get_oper operation_ref 146050 // get_commandesServer
-	set_oper operation_ref 146178 // set_commandesServer
       end
 
       attribute 129538 "ipServeur"
@@ -321,6 +320,17 @@ ${members}}
 	
 	
 	
+      end
+
+      classrelation 143106 // sessions (<directional composition>)
+	relation 142594 *-->
+	  stereotype "list"
+	  a role_name "sessions" multiplicity "*" private
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	    classrelation_ref 143106 // sessions (<directional composition>)
+	  b parent class_ref 142082 // Session
+	  association_type class_ref 142082 // Session
       end
     end
 
@@ -1438,6 +1448,92 @@ ${members}}
 	    java "${type}"
 	    classrelation_ref 136578 // <generalisation>
 	  b parent class_ref 128258 // Commande
+      end
+    end
+
+    class 142082 "Session"
+      visibility package 
+      cpp_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      attribute 136066 "socket"
+	private explicit_type "Socket"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	get_oper operation_ref 153858 // get_socket
+	set_oper operation_ref 153986 // set_socket
+      end
+
+      operation 153858 "get_socket"
+	force_body_gen const cpp_inline public explicit_return_type "Socket"
+	multiplicity "1"
+	nparams 0
+	
+	cpp_name_spec "get_${name}"
+	final java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${)}${throws}${staticnl}{
+  return socket;
+}
+"
+	java_name_spec "get${Name}"
+	php_final 
+	php_name_spec "get${Name}"
+	
+	python_name_spec "get${Name}"
+	
+	idl_name_spec "get_${name}"
+	get_of_attribute attribute_ref 136066 // socket
+      end
+
+      operation 153986 "set_socket"
+	force_body_gen public explicit_return_type "void"
+	multiplicity "1"
+	nparams 1
+	  param in name "value" explicit_type "Socket"
+	
+	cpp_name_spec "set_${name}"
+	java_def "  ${comment}${@}${visibility}${final}${static}${abstract}${synchronized}${type} ${name}${(}${t0} ${p0}${)}${throws}${staticnl}{
+  socket = ${p0};
+}
+"
+	java_name_spec "set${Name}"
+	
+	php_name_spec "set${Name}"
+	
+	python_name_spec "set${Name}"
+	
+	idl_name_spec "set_${name}"
+	set_of_attribute attribute_ref 136066 // socket
+      end
+
+      operation 154114 "Session"
+	public explicit_return_type ""
+	multiplicity "1"
+	nparams 2
+	  param in name "socket" explicit_type "Socket"
+	multiplicity "1"
+	  param in name "serveur" type class_ref 128002 // Server
+	multiplicity "1"
+	
+	java_def "  ${comment}${@}${visibility}${final}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws} {
+  ${body}}
+"
+	
+	
+	
       end
     end
   end
