@@ -13,6 +13,7 @@ import src_exception.ExceptionIpEmpty;
 public class Server {
     private InetAddress ipServer;
     private ArrayList<String> commandesServer;
+    private ServerSocket serveurSocket;
 
     public Server(InetAddress ip, ArrayList<String> commandesServer) {
         this.ipServer = ip;
@@ -79,13 +80,21 @@ public class Server {
         return true;
     }
 
+    public void run(){
+        while (true) {
+            this.enAttenteConnexion(5555);
+        }
+    }
+
     public void enAttenteConnexion(int numPort) {
         try {
-            ServerSocket socketServer = new ServerSocket(numPort);
-            Socket socketClient = socketServer.accept();
-            System.out.println("connexion d'un client");
-            socketClient.close();
-            socketServer.close();
+            this.serveurSocket = new ServerSocket(numPort);
+            while(true) {
+                Socket socketClient = this.serveurSocket.accept();
+                System.out.println("connexion d'un client");
+                Session sess = new Session(this,socketClient);
+                sess.mainSession();
+            }
         }catch (IOException e) {
             e.printStackTrace();
         }

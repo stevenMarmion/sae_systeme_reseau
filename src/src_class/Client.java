@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.net.InetAddress;
 
 import src_exception.ExceptionFollowUser;
@@ -15,8 +16,10 @@ import src_exception.ExceptionUnfoundMessage;
 public class Client {
     private InetAddress ip;
     private String username;
+    private Socket socket;
     private ArrayList<String> abonnement;
     private ArrayList<String> abonnes;
+    private ArrayList<Message> mesMessage;
 
     /**
      * Constructeur de la classe Client.
@@ -28,6 +31,7 @@ public class Client {
         this.username = username;
         this.abonnement = new ArrayList<>();
         this.abonnes = new ArrayList<>();
+        this.mesMessage = new ArrayList<>();
     }
 
     /**
@@ -68,9 +72,9 @@ public class Client {
      * @return le message si il existe , lance une exception si il n'existe pas 
      * @throws ExceptionUnfoundMessage aucun message avce cet identifiant trouver
      */
-    public boolean vérifMessage(int idMessage) throws ExceptionUnfoundMessage{
+    public Message vérifMessage(int idMessage) throws ExceptionUnfoundMessage{
         for(Message m : this.mesMessage){
-            if(m.getId==idMessage){
+            if(m.getId()==idMessage){
                 return m;
             }
         }
@@ -175,6 +179,26 @@ public class Client {
         }
     }
 
+    public void lien(String host,String port){
+        try {
+            Scanner sc = new Scanner(System.in);
+            this.socket= new Socket(host, Integer.parseInt(port));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter writer = new PrintWriter(socket.getOutputStream());
+            System.out.println("message a envoyer:\n");
+            while(true){
+                String text=sc.nextLine();
+                writer.println(text+"\n");
+                writer.flush();
+                String message = reader.readLine();
+                System.out.println(message);
+                System.out.println("message a envoyer:\n");
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
     /**
      * Vérifie si deux objets Client sont égaux.
      * @param obj L'objet à comparer.
@@ -200,6 +224,5 @@ public class Client {
 
     public static void main(String[] args) throws IOException {
         Client client = new Client(InetAddress.getByName("localhost"), "steven");
-        client.ecrireMessage("On teste");
     }
 }

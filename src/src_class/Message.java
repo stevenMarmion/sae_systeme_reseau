@@ -52,11 +52,11 @@ public class Message {
         this.nombreLike = nombreLike;
     }
 
-    public int getIdentifiantPost() {
+    public int getId() {
         return identifiantPost;
     }
 
-    public void setIdentifiantPost(int identifiantPost) {
+    public void setId(int identifiantPost) {
         this.identifiantPost = identifiantPost;
     }
 
