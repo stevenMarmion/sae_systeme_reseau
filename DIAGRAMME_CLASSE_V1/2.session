@@ -1,0 +1,12 @@
+window_sizes 1920 1009 375 1539 897 60
+cleanlooks_style
+diagrams
+  active  classdiagram_ref 128002 // DIAGRAMME_V1
+    1539 897 90 A0 0 0
+end
+show_stereotypes
+selected class_ref 142082 // Session
+open
+  classview_ref 128002 // DIAGRAMME_CLASSE
+end
+end
