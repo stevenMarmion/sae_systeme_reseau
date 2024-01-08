@@ -13,7 +13,7 @@ public class CommandeFollow extends Commande{
      * @param followUser le nom du client qui va etre suivi
      * @return un message qui sera envoyer au serveur pour actuliser la liste des abonnement du followUser
      */
-    public String follow(Client client, String followUser){
+    public String follow(Client client, Client followUser){
       String data="";
       try {
         client.ajouteAbonnement(followUser);

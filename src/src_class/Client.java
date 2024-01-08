@@ -17,8 +17,8 @@ public class Client {
     private InetAddress ip;
     private String username;
     private Socket socket;
-    private ArrayList<String> abonnement;
-    private ArrayList<String> abonnes;
+    private ArrayList<Client> abonnement;
+    private ArrayList<Client> abonnes;
     private ArrayList<Message> mesMessage;
 
     /**
@@ -54,7 +54,7 @@ public class Client {
      * Récupère la liste des personnes suivies par le client.
      * @return La liste des personnes suivies par le client.
      */
-    public ArrayList<String> getAbonnement() {
+    public ArrayList<Client> getAbonnement() {
         return this.abonnement;
     }
 
@@ -62,7 +62,7 @@ public class Client {
      * Récupère la liste des abonnés du client.
      * @return La liste des abonnés du client.
      */
-    public ArrayList<String> getAbonnes() {
+    public ArrayList<Client> getAbonnes() {
         return this.abonnes;
     }
 
@@ -100,7 +100,7 @@ public class Client {
      * @return true si l'ajout a réussi, sinon lance une exception.
      * @throws ExceptionFollowUser si l'utilisateur est déjà suivi par ce client.
      */
-    public boolean ajouteAbonnement(String utilisateur) throws ExceptionFollowUser {
+    public boolean ajouteAbonnement(Client utilisateur) throws ExceptionFollowUser {
         if (!getAbonnement().contains(utilisateur)) {
             getAbonnement().add(utilisateur);
             return true;
@@ -113,7 +113,7 @@ public class Client {
      * @return true si la suppression a réussi, sinon lance une exception.
      * @throws ExceptionUnfollowUsersi l'utilisateur n'est pas suivie par l'utilisateur.
      */
-    public boolean supprimeAbonnement(String utilisateur) throws ExceptionUnfollowUser {
+    public boolean supprimeAbonnement(Client utilisateur) throws ExceptionUnfollowUser {
         if (!getAbonnement().contains(utilisateur)) {
             getAbonnement().add(utilisateur);
             return true;
@@ -126,7 +126,7 @@ public class Client {
      * @param utilisateur Le client à ajouter à la liste des abonnés.
      * @return true si l'ajout a réussi, sinon false.
      */
-    public boolean ajouteAbonne(String utilisateur) {
+    public boolean ajouteAbonne(Client utilisateur) {
         if (!getAbonnes().contains(utilisateur)) {
             getAbonnes().add(utilisateur);
             return true;

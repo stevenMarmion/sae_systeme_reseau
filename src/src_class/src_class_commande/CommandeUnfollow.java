@@ -12,7 +12,7 @@ public class CommandeUnfollow extends Commande{
      * @param unfollowUser le nom de l'utilisateur qui sera unfollow
      * @return un message sui sera envoyer au serveur pour qu'il puissent actualiser la liste des abonnes de l'utilisateur
      */
-    public String unfollow(Client client, String unfollowUser){
+    public String unfollow(Client client, Client unfollowUser){
       String data;
       try{
         client.supprimeAbonnement(unfollowUser);
