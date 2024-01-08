@@ -1,4 +1,4 @@
 ABONNEMENT, 11 CLIENT, 0N CLIENT
-CLIENT : idClient, nomClient
+CLIENT : nomClient
 POSTER, 0N MESSAGE , 11 CLIENT
-MESSAGE : idMessage, contenu, idClient, nombreLike, date
+MESSAGE : idMessage, contenu, nombreLike, date
