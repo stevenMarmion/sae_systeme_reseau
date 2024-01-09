@@ -1,7 +1,6 @@
 package src_class;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -194,9 +193,7 @@ public class Client {
                 System.out.println(message);
                 System.out.println("message a envoyer:\n");
             }
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
+        } catch (Exception e) {}
     }
 
     /**
@@ -220,9 +217,5 @@ public class Client {
     @Override
     public String toString() {
         return "Client d'ip : " + getIp() + " et de username : " + getUsername();
-    }
-
-    public static void main(String[] args) throws IOException {
-        Client client = new Client(InetAddress.getByName("localhost"), "steven");
     }
 }

@@ -13,12 +13,20 @@ public class Message {
 
     private int identifiantPost;
 
-    public Message(String contenu,String nomExpediteur,int nombreLike){
-        this.contenu=contenu;
-        this.date=new Date();
-        this.nombreLike=nombreLike;
-
+    public Message(String contenu, String nomExpediteur, int nombreLike){
+        this.contenu = contenu;
+        this.nomExpediteur = nomExpediteur;
+        this.date = new Date();
+        this.nombreLike = nombreLike;
     }
+
+    public Message(String contenu, String nomExpediteur, int nombreDeLike, Date date) {
+        this.contenu = contenu;
+        this.nomExpediteur = nomExpediteur;
+        this.date = date;
+        this.nombreLike = nombreDeLike;
+    }
+
     // getteur et setteur de la classe message
     public String getContenu() {
         return contenu;
