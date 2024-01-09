@@ -2,7 +2,7 @@ package src_class.src_class_modeleBDD;
 
 import java.sql.*;
 
-import src_class.Message;
+import src_class.src_class_modele.Message;
 
 public class MessageBDD {
     ConnectionBDD connection;

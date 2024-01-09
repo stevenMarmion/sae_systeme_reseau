@@ -1,4 +1,4 @@
-package src_class;
+package src_class.src_class_modele;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -152,6 +152,34 @@ public class Client {
             this.username = newUsername;
         }
     }
+
+        /**
+     * Met à jour la liste des personnes suivies par le client.
+     * 
+     * @param abonnement La nouvelle liste des personnes suivies à définir pour le client.
+     */
+    public void setAbonnement(ArrayList<Client> abonnement) {
+        this.abonnement = abonnement;
+    }
+
+    /**
+     * Met à jour la liste des abonnés du client.
+     * 
+     * @param abonnes La nouvelle liste des abonnés à définir pour le client.
+     */
+    public void setAbonnes(ArrayList<Client> abonnes) {
+        this.abonnes = abonnes;
+    }
+
+    /**
+     * Met à jour la liste des messages associés au client.
+     * 
+     * @param mesMessage La nouvelle liste de messages à associer au client.
+     */
+    public void setMesMessage(ArrayList<Message> mesMessage) {
+        this.mesMessage = mesMessage;
+    }
+
 
     public void lireMessage() {
         try {

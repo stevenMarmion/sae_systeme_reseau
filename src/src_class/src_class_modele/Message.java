@@ -1,116 +1,86 @@
 package src_class.src_class_modele;
+import java.util.Date;
 
-import java.sql.Date;
-
-/**
- * La classe Message représente un message avec des attributs tels que l'identifiant du message,
- * son contenu, le nombre de likes et la date de création.
- */
 public class Message {
-    private int idMessage;          // L'identifiant du message
-    private String contenu;         // Le contenu du message
-    private int nombreDeLike;       // Le nombre de likes du message
-    private Date date;              // La date de création du message
 
-    /**
-     * Constructeur de la classe Message pour initialiser les attributs.
-     * 
-     * @param idMessage     L'identifiant du message
-     * @param contenu       Le contenu du message
-     * @param nombreDeLike  Le nombre de likes du message
-     * @param date          La date de création du message
-     */
-    public Message(int idMessage, String contenu, int nombreDeLike, Date date) {
-        this.idMessage = idMessage;
+    private String contenu;
+
+    private String nomExpediteur;
+
+    private Date date;
+
+    private int nombreLike;
+
+    private int identifiantPost;
+
+    public Message(String contenu, String nomExpediteur, int nombreLike){
         this.contenu = contenu;
-        this.nombreDeLike = nombreDeLike;
+        this.nomExpediteur = nomExpediteur;
+        this.date = new Date();
+        this.nombreLike = nombreLike;
+    }
+
+    public Message(String contenu, String nomExpediteur, int nombreDeLike, Date date) {
+        this.contenu = contenu;
+        this.nomExpediteur = nomExpediteur;
         this.date = date;
+        this.nombreLike = nombreDeLike;
     }
 
-    /**
-     * Obtient l'identifiant du message.
-     * 
-     * @return L'identifiant du message
-     */
-    public int getIdMessage() {
-        return idMessage;
-    }
-
-    /**
-     * Obtient le contenu du message.
-     * 
-     * @return Le contenu du message
-     */
+    // getteur et setteur de la classe message
     public String getContenu() {
         return contenu;
     }
 
-    /**
-     * Obtient le nombre de likes du message.
-     * 
-     * @return Le nombre de likes du message
-     */
-    public int getNombreDeLike() {
-        return nombreDeLike;
-    }
-
-    /**
-     * Obtient la date de création du message.
-     * 
-     * @return La date de création du message
-     */
-    public Date getDate() {
-        return date;
-    }
-
-    /**
-     * Définit l'identifiant du message.
-     * 
-     * @param idMessage Le nouvel identifiant du message
-     */
-    public void setIdMessage(int idMessage) {
-        this.idMessage = idMessage;
-    }
-
-    /**
-     * Définit le contenu du message.
-     * 
-     * @param contenu Le nouveau contenu du message
-     */
     public void setContenu(String contenu) {
         this.contenu = contenu;
     }
 
-    /**
-     * Définit le nombre de likes du message.
-     * 
-     * @param nombreDeLike Le nouveau nombre de likes du message
-     */
-    public void setNombreDeLike(int nombreDeLike) {
-        this.nombreDeLike = nombreDeLike;
+    public String getNomExpediteur() {
+        return nomExpediteur;
     }
 
-    /**
-     * Définit la date de création du message.
-     * 
-     * @param date La nouvelle date de création du message
-     */
+    public void setNomExpediteur(String nomExpediteur) {
+        this.nomExpediteur = nomExpediteur;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
     public void setDate(Date date) {
         this.date = date;
     }
 
-    /**
-     * Renvoie une représentation sous forme de chaîne de caractères de l'objet Message.
-     * 
-     * @return Une représentation sous forme de chaîne de caractères de l'objet Message
-     */
-    @Override
-    public String toString() {
-        return "Message{" +
-                "idMessage=" + idMessage +
-                ", contenu='" + contenu + '\'' +
-                ", nombreDeLike=" + nombreDeLike +
-                ", date=" + date +
-                '}';
+    public int getNombreLike() {
+        return nombreLike;
     }
-}
+
+    public void setNombreLike(int nombreLike) {
+        this.nombreLike = nombreLike;
+    }
+
+    public int getId() {
+        return identifiantPost;
+    }
+
+    public void setId(int identifiantPost) {
+        this.identifiantPost = identifiantPost;
+    }
+
+    // méthode métier
+    /**
+     * cet methode permet d'incrementer de 1 le nombre de like
+     */
+    public void incrementLike(){
+        this.nombreLike++;
+    }
+    /**
+     * cet methode permet d'obtenir le message sous forme de String recevable par le serveur (avec la syntaxe correcte)
+     * @return  le message recevable par le serveur
+     */
+    public String ecritureMessage(){
+        String data="message : \n contenu : '"+this.contenu+"' \n expediteur : '"+this.nomExpediteur+"' \n date : '"+this.date+"' \n nombreLike : '"+this.nombreLike+"' \n id : '"+this.identifiantPost+"'";
+        return data;
+    }
+    }

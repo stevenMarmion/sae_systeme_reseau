@@ -1,6 +1,6 @@
 package src_exception;
 
-import src_class.Client;
+import src_class.src_class_modele.Client;
 
 public class ExceptionFollowUser extends Exception {
     public ExceptionFollowUser(Client nomUtilisateur) {

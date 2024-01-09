@@ -3,7 +3,7 @@ package src_test;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import src_class.Client;
+import src_class.src_class_modele.Client;
 import src_exception.ExceptionFollowUser;
 
 public class MainClient {
