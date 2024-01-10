@@ -1,11 +1,26 @@
 package src_class.src_class_commande;
 import src_class.src_class_modele.Client;
 
-public class CommandeUnfollow extends Commande{
+public class CommandeUnfollow implements Commande{
+
+    private String nom;
+    private String code;
+
     public CommandeUnfollow(){
-        super.nom="unfollow";
-        super.code="1";
+        this.nom="unfollow";
+        this.code="4";
     }
+
+    @Override
+    public String getNom() {
+      return this.nom;
+    }
+
+    @Override
+    public String getCode() {
+      return this.code;
+    }
+
     /**
      * permet de unFollow un utilisateur 
      * @param client le client qui veut unfollow

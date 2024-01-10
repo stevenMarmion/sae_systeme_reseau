@@ -88,5 +88,19 @@ public class MessageBDD {
 		}
     } 
 
+	public void effacerMessage(int idMessage) throws SQLException {
+		System.out.println(">> MessageBDD.effacerMessage entre avec le paramètre idMessage " + idMessage);
+		st = connection.createStatement();
+		try { 
+			st.executeQuery("delete from Message where idMessage="+idMessage+";");
+			System.out.println("<< MessageBDD.effacerMessage sort avec le message " + idMessage + " supprimé");
+		}
+		catch (SQLException e){
+			System.out.println("<< MessageBDD.effacerMessage sort par exeption");
+			throw new SQLException("Message inexistant dans la table");
+		}
+		st.close();
+	}
+
 }
 
