@@ -2,7 +2,7 @@ package src_test;
 
 import java.net.InetAddress;
 
-import src_class.Client;
+import src_class.src_class_modele.Client;
 
 public class MainTestClient {
     public static void main(String[] args) {

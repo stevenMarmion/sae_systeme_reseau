@@ -1,6 +1,6 @@
 package src_class.src_class_commande;
 
-import src_class.Client;
+import src_class.src_class_modele.Client;
 
 public class CommandeDeleteClient extends Commande{
 

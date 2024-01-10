@@ -1,4 +1,4 @@
-package src_class;
+package src_class.src_class_modele;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -6,6 +6,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import src_class.Server;
+
 import java.net.InetAddress;
 
 import src_exception.ExceptionFollowUser;
@@ -19,6 +22,8 @@ public class Client {
     private ArrayList<Client> abonnement;
     private ArrayList<Client> abonnes;
     private ArrayList<Message> mesMessage;
+    private Server serveur;
+
 
     /**
      * Constructeur de la classe Client.
@@ -65,6 +70,10 @@ public class Client {
         return this.abonnes;
     }
 
+    public ArrayList<Message> getMessages() {
+        return this.mesMessage;
+    }
+
     /**
      * permet de vérifier si l'identifiant fourni corresponds bien a un des messages du client
      * @param idMessage identifiant du message 
@@ -91,6 +100,19 @@ public class Client {
         } catch (Exception e) {
             return false;
         }
+    }
+    /**
+     * Ajoute un message par le client.
+     * @param message le message à ajouter à ces messages.
+     * @return true si l'ajout a réussi, sinon lance une exception.
+     * @throws ExceptionFollowUser si l'utilisateur est déjà suivi par ce client.
+     */
+    public boolean ajouteMessage(Message message) {
+        if (!getMessages().contains(message)) {
+            getMessages().add(message);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -143,6 +165,14 @@ public class Client {
         }
     }
 
+    public void setServeur(Server serveur) {
+        this.serveur = serveur;
+    }
+
+    public Server getServer() {
+        return this.serveur;
+    }
+
     /**
      * Met à jour le nom d'utilisateur du client.
      * @param newUsername Le nouveau nom d'utilisateur à définir.
@@ -152,6 +182,34 @@ public class Client {
             this.username = newUsername;
         }
     }
+
+        /**
+     * Met à jour la liste des personnes suivies par le client.
+     * 
+     * @param abonnement La nouvelle liste des personnes suivies à définir pour le client.
+     */
+    public void setAbonnement(ArrayList<Client> abonnement) {
+        this.abonnement = abonnement;
+    }
+
+    /**
+     * Met à jour la liste des abonnés du client.
+     * 
+     * @param abonnes La nouvelle liste des abonnés à définir pour le client.
+     */
+    public void setAbonnes(ArrayList<Client> abonnes) {
+        this.abonnes = abonnes;
+    }
+
+    /**
+     * Met à jour la liste des messages associés au client.
+     * 
+     * @param mesMessage La nouvelle liste de messages à associer au client.
+     */
+    public void setMesMessage(ArrayList<Message> mesMessage) {
+        this.mesMessage = mesMessage;
+    }
+
 
     public void lireMessage() {
         try {
@@ -189,8 +247,10 @@ public class Client {
                 String text=sc.nextLine();
                 writer.println(text+"\n");
                 writer.flush();
-                String message = reader.readLine();
-                System.out.println(message);
+                String contenu = reader.readLine();
+                Message message = new Message(contenu, this.getUsername(), 0);
+                this.getServer().ajouteMessage(message);
+                System.out.println(contenu);
                 System.out.println("message a envoyer:\n");
             }
         } catch (Exception e) {}
