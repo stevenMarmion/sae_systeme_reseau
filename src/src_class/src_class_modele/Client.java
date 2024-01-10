@@ -6,6 +6,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import src_class.Server;
+
 import java.net.InetAddress;
 
 import src_exception.ExceptionFollowUser;
@@ -19,6 +22,8 @@ public class Client {
     private ArrayList<Client> abonnement;
     private ArrayList<Client> abonnes;
     private ArrayList<Message> mesMessage;
+    private Server serveur;
+
 
     /**
      * Constructeur de la classe Client.
@@ -65,6 +70,10 @@ public class Client {
         return this.abonnes;
     }
 
+    public ArrayList<Message> getMessages() {
+        return this.mesMessage;
+    }
+
     /**
      * permet de vérifier si l'identifiant fourni corresponds bien a un des messages du client
      * @param idMessage identifiant du message 
@@ -91,6 +100,19 @@ public class Client {
         } catch (Exception e) {
             return false;
         }
+    }
+    /**
+     * Ajoute un message par le client.
+     * @param message le message à ajouter à ces messages.
+     * @return true si l'ajout a réussi, sinon lance une exception.
+     * @throws ExceptionFollowUser si l'utilisateur est déjà suivi par ce client.
+     */
+    public boolean ajouteMessage(Message message) {
+        if (!getMessages().contains(message)) {
+            getMessages().add(message);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -141,6 +163,14 @@ public class Client {
         if (!getIp().equals(newIp)) {
             this.ip = newIp;
         }
+    }
+
+    public void setServeur(Server serveur) {
+        this.serveur = serveur;
+    }
+
+    public Server getServer() {
+        return this.serveur;
     }
 
     /**
@@ -217,8 +247,10 @@ public class Client {
                 String text=sc.nextLine();
                 writer.println(text+"\n");
                 writer.flush();
-                String message = reader.readLine();
-                System.out.println(message);
+                String contenu = reader.readLine();
+                Message message = new Message(contenu, this.getUsername(), 0);
+                this.getServer().ajouteMessage(message);
+                System.out.println(contenu);
                 System.out.println("message a envoyer:\n");
             }
         } catch (Exception e) {}

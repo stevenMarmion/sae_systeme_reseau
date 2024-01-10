@@ -4,25 +4,39 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import src_exception.ExceptionCommandesAlreadyAdd;
 import src_exception.ExceptionIpAlreadyDefined;
 import src_exception.ExceptionIpEmpty;
 
+import src_class.src_class_modeleBDD.*;
+import src_class.src_class_modele.*;
+
 public class Server {
     private InetAddress ipServer;
     private ArrayList<String> commandesServer;
     private ServerSocket serveurSocket;
+    private ClientBDD clientBDD;
+    private MessageBDD messageBDD;
+    private ConnectionBDD connectionBDD;
 
-    public Server(InetAddress ip, ArrayList<String> commandesServer) {
+    public Server(InetAddress ip, ArrayList<String> commandesServer) throws ClassNotFoundException {
         this.ipServer = ip;
         this.commandesServer = commandesServer;
+        this.connectionBDD = new ConnectionBDD();
+        this.clientBDD = new ClientBDD(connectionBDD);
+        this.messageBDD = new MessageBDD(connectionBDD);
     }
 
-    public Server(InetAddress ip) {
+    public Server(InetAddress ip) throws ClassNotFoundException {
         this.ipServer = ip;
         this.commandesServer = new ArrayList<>();
+        this.connectionBDD = new ConnectionBDD();
+        this.clientBDD = new ClientBDD(connectionBDD);
+        this.messageBDD = new MessageBDD(connectionBDD);
     }
 
     public InetAddress getIpServer() {
@@ -80,18 +94,20 @@ public class Server {
         return true;
     }
 
-    public void run(){
+    public void run(String username) throws SQLException{
         while (true) {
-            this.enAttenteConnexion(5555);
+            this.enAttenteConnexion(5555, username);
         }
     }
 
-    public void enAttenteConnexion(int numPort) {
+    public void enAttenteConnexion(int numPort, String username) throws SQLException {
         try {
             this.serveurSocket = new ServerSocket(numPort);
             while(true) {
                 Socket socketClient = this.serveurSocket.accept();
                 System.out.println("connexion d'un client");
+                InetAddress ip = socketClient.getInetAddress();
+                this.userExistant(ip, username);
                 Session sess = new Session(this,socketClient);
                 sess.mainSession();
             }
@@ -100,15 +116,32 @@ public class Server {
         }
     }
 
+    public boolean userExistant(InetAddress ip, String username) throws UnknownHostException, SQLException {
+        boolean estExistant = this.clientBDD.estClientExistant(username);
+        if (estExistant) {
+            this.clientBDD.chargeInfos(ip, username);
+            return true;
+        }
+        else {
+            this.clientBDD.ajouterClient(username, ip);
+            return false;
+        }
+    }
+
+    public void ajouteMessage(Message message) throws SQLException {
+        this.messageBDD.ajouterMessage(message);
+    }
+
     @Override
     public String toString() {
         return "Serveur définit par l'IP : " + getIpServer() + ", liste des commandes : " + getCommandesServer();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
         Server server = new Server(InetAddress.getByName("localhost"));
+        String nouveauUsername = "Steven";
         while (true) {
-            server.enAttenteConnexion(5555);
+            server.enAttenteConnexion(5555, nouveauUsername);
         }
     }
 }

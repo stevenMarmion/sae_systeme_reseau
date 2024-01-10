@@ -27,6 +27,26 @@ public class ClientBDD {
 		return client;
 	}
 
+    public Client chargeInfos(InetAddress ip, String username) throws SQLException, UnknownHostException {
+		st=connection.createStatement();
+		ResultSet rs = st.executeQuery("SELECT * FROM CLIENT where username = " + username + ";");
+		rs.next();
+        Client client = new Client(ip, username);
+		rs.close();
+        client.setAbonnement(this.getAbonnements(username));
+        client.setMesMessage(this.getMessagePostes(username));
+		return client;
+	}
+
+    public boolean estClientExistant(String username) throws SQLException, UnknownHostException {
+		st=connection.createStatement();
+		ResultSet rs = st.executeQuery("SELECT * FROM CLIENT where username = " + username + ";");
+        if (!rs.next()) {
+            return false;
+        }
+		return true;
+	}
+
     public ArrayList<Client> getAbonnements(String nomClient) throws SQLException, UnknownHostException {
 		st=connection.createStatement();
 		ResultSet rs = st.executeQuery("SELECT * FROM CLIENT where nomClient = " + nomClient + ";");
@@ -51,5 +71,18 @@ public class ClientBDD {
 		return messagesPostes;
 	}
 
+    public void ajouterClient(String username, InetAddress ip) throws SQLException {
+        try {
+            PreparedStatement ps = connection.prepareStatement(
+                "insert into Client (id, username, ip) values (?,?,?)"
+            );
+            ps.setString(2, username);
+            ps.setString(3, String.valueOf(ip));
+            ps.executeUpdate();
+		}
+		catch (SQLException e){
+			throw new SQLException("Mauvaise insertion");
+		}
+    } 
 }
 

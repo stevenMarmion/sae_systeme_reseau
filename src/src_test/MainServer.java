@@ -7,7 +7,7 @@ import src_class.Server;
 import src_exception.ExceptionCommandesAlreadyAdd;
 
 public class MainServer {
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args) throws UnknownHostException, ClassNotFoundException {
         Server mainServer = new Server(InetAddress.getByName("localhost"));
 
         ArrayList<String> listeCommandes = new ArrayList<>();
