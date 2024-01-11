@@ -20,5 +20,7 @@ public class CommandeDeleteServer implements Commande {
     }
 
     @Override
-    public String agis(String param, String username) {return null;}
+    public String agis(String param, String username) {
+      return null;
+    }
 }

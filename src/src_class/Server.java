@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -78,6 +79,14 @@ public class Server {
 
     public ArrayList<Commande> getCommandesClient() {
         return this.commandesClient;
+    }
+
+    public MessageBDD getMessageBDD() {
+        return this.messageBDD;
+    }
+
+    public ClientBDD getClientBDD() {
+        return this.clientBDD;
     }
 
     public boolean setIpServer(InetAddress ip) throws ExceptionIpAlreadyDefined, ExceptionIpEmpty {
@@ -159,23 +168,7 @@ public class Server {
         }
     }
 
-    public boolean userExistant(InetAddress ip, String username) throws UnknownHostException, SQLException {
-        System.out.println(">> Server.userExistant entre avec l'adresse ip " + String.valueOf(ip) + " et le username " + username);
-        boolean estExistant = this.clientBDD.estClientExistant(username);
-        System.out.println(username);
-        if (estExistant) {
-            this.clientBDD.chargeInfos(ip, username);
-            System.out.println("<< Server.userExistant sort avec un utilisateur existant");
-            return true;
-        }
-        else {
-            this.clientBDD.ajouterClient(username, ip);
-            System.out.println("<< Server.userExistant sort avec un utilisateur inconnu");
-            return false;
-        }
-    }
-
-    public void ajouteMessage(Message message) throws SQLException {
+    public void ajouteMessage(Message message) throws SQLException, ParseException {
         System.out.println(">> Server.ajouteMessage entre avec le parametre " + message);
         this.messageBDD.ajouterMessage(message);
         System.out.println("<< Server.ajouteMessage sort");

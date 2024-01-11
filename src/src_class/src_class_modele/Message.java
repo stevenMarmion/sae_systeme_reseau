@@ -1,5 +1,6 @@
 package src_class.src_class_modele;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class Message {
 
@@ -7,7 +8,7 @@ public class Message {
 
     private String nomExpediteur;
 
-    private Date date;
+    private java.sql.Date date;
 
     private int nombreLike;
 
@@ -16,7 +17,7 @@ public class Message {
     public Message(String contenu, String nomExpediteur, int nombreLike){
         this.contenu = contenu;
         this.nomExpediteur = nomExpediteur;
-        this.date = new Date();
+        this.date = java.sql.Date.valueOf(LocalDate.now());
         this.nombreLike = nombreLike;
     }
 
@@ -44,12 +45,12 @@ public class Message {
         this.nomExpediteur = nomExpediteur;
     }
 
-    public Date getDate() {
+    public java.sql.Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(java.sql.Date date2) {
+        this.date = date2;
     }
 
     public int getNombreLike() {

@@ -4,6 +4,7 @@ import java.net.UnknownHostException;
 import java.sql.SQLException;
 
 import src_class.src_class_modele.Client;
+import src_class.src_class_modeleBDD.*;
 
 public class CommandeLike implements Commande{
 

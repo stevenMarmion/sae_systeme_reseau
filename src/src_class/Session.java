@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public class Session {
         try{
             String usernameClient = entre.readLine();
             System.out.println("\nClient avec username : " + usernameClient + " se connecte / s'inscrit\n");
-            //this.serv.userExistant(ip, usernameClient);
+            this.userExistant(ip, usernameClient);
             while(true){
                 String message = entre.readLine();
                 Message messageReconsituer = this.reconstitueMessage(message);
@@ -47,13 +49,13 @@ public class Session {
                     break;
                 }
                 else if (messageReconsituer.getContenu().startsWith("/")) {
-                    System.out.println("\non a une commande !!");
                     this.serv.estUneCommandeExistante(messageReconsituer.getContenu().substring(1, messageReconsituer.getContenu().length()) + " " + 
                                                       messageReconsituer.getNomExpediteur());
                     sortie.println("\nMessage reçu\n");
                     sortie.flush();
                 }
                 else{
+                    this.serv.getMessageBDD().ajouterMessage(messageReconsituer);
                     sortie.println("\nMessage reçu\n");
                     sortie.flush();
                 }
@@ -73,12 +75,28 @@ public class Session {
         SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
         try {
             Date date = formatter.parse(listeLignes.get(2));
-            res.setDate(date);
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            res.setDate(sqlDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         res.setId(Integer.parseInt(listeLignes.get(4)));
         System.out.println("<< Session.reconstitueMessage sort avec le message : " + res);
         return res;
+    }
+
+    public boolean userExistant(InetAddress ip, String username) throws UnknownHostException, SQLException {
+        System.out.println(">> Session.userExistant entre avec l'adresse ip " + String.valueOf(ip) + " et le username " + username);
+        boolean estExistant = this.serv.getClientBDD().estClientExistant(username);
+        if (estExistant) {
+            this.serv.getClientBDD().chargeInfos(ip, username);
+            System.out.println("<< Session.userExistant sort avec un utilisateur existant");
+            return true;
+        }
+        else {
+            this.serv.getClientBDD().ajouterClient(username, ip);
+            System.out.println("<< Session.userExistant sort avec un utilisateur inconnu");
+            return false;
+        }
     }
 }
