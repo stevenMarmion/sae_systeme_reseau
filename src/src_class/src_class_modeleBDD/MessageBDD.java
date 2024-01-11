@@ -1,9 +1,6 @@
 package src_class.src_class_modeleBDD;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 
 import src_class.src_class_modele.Message;
 
@@ -107,6 +104,43 @@ public class MessageBDD {
 		}
 		st.close();
 	}
+
+	public void likerMessage(int idMessage) throws SQLException {
+		System.out.println(">> ClientBDD.likerMessage entre avec le paramètre idMessage : " + idMessage);
+		try {
+			PreparedStatement ps = connection.prepareStatement(
+					"UPDATE MESSAGE SET nombre_de_like = nombre_de_like + 1 WHERE id_message = ?"
+			);
+			ps.setInt(1, idMessage);
+			int isLiked = ps.executeUpdate();
+			if (isLiked > 0) {
+				System.out.println("<< ClientBDD.likerMessage sort avec le message liké");
+			} else {
+				System.out.println("<< ClientBDD.likerMessage sort avec une erreur - Message non trouvé");
+				throw new SQLException("Message non trouvé");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("<< ClientBDD.likerMessage sort en exception");
+			throw new SQLException("Mauvaise mise à jour");
+		}
+	}
+	public void supprimerMessagesUtilisateur(String username) throws SQLException {
+        System.out.println(">> ClientBDD.supprimerMessagesUtilisateur entre avec le paramètre username : " + username);
+		try (PreparedStatement ps = connection.prepareStatement(
+				"DELETE FROM MESSAGE WHERE expediteur = ?"
+		)) {
+			ps.setString(1, username);
+			int rowsAffected = ps.executeUpdate();
+
+			System.out.println("<< ClientBDD.supprimerMessagesUtilisateur sort avec "
+					+ rowsAffected + " message(s) de l'utilisateur supprimé(s)");
+		} catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("<< ClientBDD.supprimerMessagesUtilisateur sort en exception");
+            throw new SQLException("Mauvaise suppression");
+        }
+    }    
 
 }
 

@@ -34,6 +34,10 @@ public class Session {
         }
     }
 
+    public Socket getSocket() {
+        return this.socket;
+    }
+
     public void mainSession(InetAddress ip){
         System.out.println(">> Session.mainSession entre avec l'adresse ip du client : " + String.valueOf(ip));
         try{
