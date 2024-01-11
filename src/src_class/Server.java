@@ -42,11 +42,13 @@ public class Server {
         // this.messageBDD = new MessageBDD(connectionBDD);
     }
 
-    public Server(InetAddress ip) throws ClassNotFoundException {
+    public Server(InetAddress ip) throws ClassNotFoundException, SQLException {
+        System.out.println(">> Server.constructor entre ");
         this.ipServer = ip;
         this.commandesServer = new ArrayList<>();
         this.commandesClient = new ArrayList<>();
         this.connectionBDD = new ConnectionBDD();
+        this.connectionBDD.connecter("servinfo-maria", "DBmarmion", "marmion", "marmion");
         this.clientBDD = new ClientBDD(connectionBDD);
         this.messageBDD = new MessageBDD(connectionBDD);
 
@@ -58,11 +60,12 @@ public class Server {
         Commande commandeFollow = new CommandeFollow(clientBDD);
         Commande commandeUnfollow = new CommandeUnfollow();
         Commande commandeLike = new CommandeLike("like", "5");
-        Commande commandeDeleteMessage = new CommandeDeleteClient("delete", "6", this.connectionBDD, this.messageBDD);
+        Commande commandeDeleteMessage = new CommandeDeleteClient("delete", "6", this.messageBDD, this.clientBDD);
         this.commandesClient.add(commandeFollow);
         this.commandesClient.add(commandeUnfollow);
         this.commandesClient.add(commandeLike);
         this.commandesClient.add(commandeDeleteMessage);
+        System.out.println(">> Server.constructor sort ");
     }
 
     public InetAddress getIpServer() {
@@ -178,7 +181,7 @@ public class Server {
         System.out.println("<< Server.ajouteMessage sort");
     }
 
-    public boolean estUneCommandeExistante(String commandeAvecParametre) {
+    public boolean estUneCommandeExistante(String commandeAvecParametre) throws UnknownHostException, SQLException {
         System.out.println(">> Server.estUneCommandeExistante entre avec le parametre " + commandeAvecParametre);
 
         String[] nomCommande = commandeAvecParametre.split(" ");

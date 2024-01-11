@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import src_class.src_class_modele.Message;
 
@@ -69,7 +70,7 @@ public class Session {
         List<String> listeLignes = new ArrayList<>();
         Collections.addAll(listeLignes, lignes);
         Message res = new Message(listeLignes.get(0), listeLignes.get(1), Integer.parseInt(listeLignes.get(3)));
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
         try {
             Date date = formatter.parse(listeLignes.get(2));
             res.setDate(date);
