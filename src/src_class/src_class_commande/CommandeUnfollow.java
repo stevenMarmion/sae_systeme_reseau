@@ -1,4 +1,7 @@
 package src_class.src_class_commande;
+import java.net.UnknownHostException;
+import java.sql.SQLException;
+
 import src_class.src_class_modele.Client;
 
 public class CommandeUnfollow implements Commande{
@@ -19,6 +22,11 @@ public class CommandeUnfollow implements Commande{
     @Override
     public String getCode() {
       return this.code;
+    }
+
+    @Override
+    public String agis(String param, String username) throws UnknownHostException, SQLException {
+      return username;
     }
 
     /**

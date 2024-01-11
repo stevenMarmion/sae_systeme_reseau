@@ -55,7 +55,7 @@ public class Server {
         this.commandesServer.add(commandeDelete);
         this.commandesServer.add(commandeRemove);
 
-        Commande commandeFollow = new CommandeFollow();
+        Commande commandeFollow = new CommandeFollow(clientBDD);
         Commande commandeUnfollow = new CommandeUnfollow();
         Commande commandeLike = new CommandeLike("like", "5");
         Commande commandeDeleteMessage = new CommandeDeleteClient("delete", "6", this.connectionBDD, this.messageBDD);

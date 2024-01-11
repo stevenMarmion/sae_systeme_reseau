@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import src_class.Server;
 import src_class.src_class_commande.Commande;
 import src_class.src_class_commande.CommandeDeleteServer;
-import src_class.src_class_commande.CommandeFollow;
 import src_class.src_class_commande.CommandeRemove;
 import src_exception.ExceptionCommandesAlreadyAdd;
 
