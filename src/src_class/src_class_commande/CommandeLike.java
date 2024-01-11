@@ -1,12 +1,35 @@
 package src_class.src_class_commande;
 
+import java.net.UnknownHostException;
+import java.sql.SQLException;
+
 import src_class.src_class_modele.Client;
 
-public class CommandeLike extends Commande{
+public class CommandeLike implements Commande{
+
+    private String nom;
+    private String code;
+
     public CommandeLike(String nom,String code){
-        super.nom=nom;
-        super.code=code;
+        this.nom=nom;
+        this.code=code;
     }
+
+    @Override
+    public String getNom() {
+      return this.nom;
+    }
+
+    @Override
+    public String getCode() {
+      return this.code;
+    }
+
+    @Override
+    public String agis(String param, String username) throws UnknownHostException, SQLException {
+      return username;
+    }
+
     /**
      * permet de liker un message
      * @param client le client qui veut liker le message

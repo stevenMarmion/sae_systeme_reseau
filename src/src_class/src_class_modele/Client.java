@@ -236,24 +236,33 @@ public class Client {
         }
     }
 
-    public void lien(String host,String port){
+    public void lien(String host,String port, String username){
+        System.out.println(">> Client.lien entre sur l'adresse " + host + ", le port " + port + " avec un nom d'utilisateur " + username);
         try {
             Scanner sc = new Scanner(System.in);
             this.socket= new Socket(host, Integer.parseInt(port));
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
-            System.out.println("message a envoyer:\n");
+            writer.println(username);
+            writer.flush();
+            System.out.println("\nMessage à envoyer:\n");
             while(true){
                 String text=sc.nextLine();
-                writer.println(text+"\n");
+                Message message = new Message(text, this.getUsername(), 0);
+                writer.println(message.getContenu() + "," +
+                               message.getNomExpediteur() +"," + 
+                               message.getDate() + "," + 
+                               message.getNombreLike() + "," + 
+                               message.getId());
                 writer.flush();
                 String contenu = reader.readLine();
-                Message message = new Message(contenu, this.getUsername(), 0);
-                this.getServer().ajouteMessage(message);
+                //this.getServer().ajouteMessage(message);
                 System.out.println(contenu);
-                System.out.println("message a envoyer:\n");
+                System.out.println("\nMessage à envoyer:\n");
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            System.out.println("<< Client.lien sort en exeption");
+        }
     }
 
     /**

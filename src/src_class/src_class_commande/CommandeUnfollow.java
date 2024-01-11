@@ -1,11 +1,34 @@
 package src_class.src_class_commande;
+import java.net.UnknownHostException;
+import java.sql.SQLException;
+
 import src_class.src_class_modele.Client;
 
-public class CommandeUnfollow extends Commande{
+public class CommandeUnfollow implements Commande{
+
+    private String nom;
+    private String code;
+
     public CommandeUnfollow(){
-        super.nom="unfollow";
-        super.code="1";
+        this.nom="unfollow";
+        this.code="4";
     }
+
+    @Override
+    public String getNom() {
+      return this.nom;
+    }
+
+    @Override
+    public String getCode() {
+      return this.code;
+    }
+
+    @Override
+    public String agis(String param, String username) throws UnknownHostException, SQLException {
+      return username;
+    }
+
     /**
      * permet de unFollow un utilisateur 
      * @param client le client qui veut unfollow

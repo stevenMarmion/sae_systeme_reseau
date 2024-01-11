@@ -1,14 +1,12 @@
 package src_class.src_class_commande;
 
-abstract class Commande {
-    protected String nom;
-    protected String code;
+import java.net.UnknownHostException;
+import java.sql.SQLException;
 
-    public String getNom(){
-        return this.nom;
-    }
+public interface Commande {
+    public String getNom();
 
-    public String getCode(){
-        return this.code;
-    }
+    public String getCode();
+
+    public String agis(String param, String username) throws UnknownHostException, SQLException;
 }
