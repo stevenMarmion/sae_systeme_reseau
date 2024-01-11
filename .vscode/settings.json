@@ -3,7 +3,8 @@
         "include": [
             "lib/**/*.jar",
             "mysql-connector-j-8.1.0.jar",
-            "/usr/share/java/mariadb-java-client.jar"
+            "/usr/share/java/mariadb-java-client.jar",
+            "mariadb-java-client.jar"
         ],
         "exclude": [
             "mysql-connector-j-8.2.0.jar"

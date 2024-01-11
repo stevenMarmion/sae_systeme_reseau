@@ -48,7 +48,7 @@ public class Server {
         this.commandesServer = new ArrayList<>();
         this.commandesClient = new ArrayList<>();
         this.connectionBDD = new ConnectionBDD();
-        this.connectionBDD.connecter("servinfo-maria", "DBmarmion", "marmion", "marmion");
+        this.connectionBDD.connecter("localhost", "reseau_social", "steven", "s07012004");
         this.clientBDD = new ClientBDD(connectionBDD);
         this.messageBDD = new MessageBDD(connectionBDD);
 
