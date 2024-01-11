@@ -53,14 +53,14 @@ public class Server {
         this.clientBDD = new ClientBDD(connectionBDD);
         this.messageBDD = new MessageBDD(connectionBDD);
 
-        Commande commandeDelete = new CommandeDeleteServer("delete", "1");
-        Commande commandeRemove = new CommandeRemove("remove", "2");
+        Commande commandeDelete = new CommandeDeleteServer("delete", "1", messageBDD, clientBDD);
+        Commande commandeRemove = new CommandeRemove("remove", "2", clientBDD, messageBDD);
         this.commandesServer.add(commandeDelete);
         this.commandesServer.add(commandeRemove);
 
         Commande commandeFollow = new CommandeFollow(clientBDD);
-        Commande commandeUnfollow = new CommandeUnfollow();
-        Commande commandeLike = new CommandeLike("like", "5");
+        Commande commandeUnfollow = new CommandeUnfollow(clientBDD);
+        Commande commandeLike = new CommandeLike("like", "5", messageBDD, clientBDD);
         Commande commandeDeleteMessage = new CommandeDeleteClient("delete", "6", this.messageBDD, this.clientBDD);
         this.commandesClient.add(commandeFollow);
         this.commandesClient.add(commandeUnfollow);

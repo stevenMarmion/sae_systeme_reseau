@@ -32,7 +32,7 @@ public class CommandeDeleteClient implements Commande{
       try {
         Integer idMessage = Integer.parseInt(param);
         Client clientWithUsername = this.clientBDD.getClient(username);
-        return this.DeleteMessageClient(clientWithUsername, idMessage);
+        return this.deleteMessageClient(clientWithUsername, idMessage);
       } catch (Exception e) {
         
       }
@@ -45,7 +45,7 @@ public class CommandeDeleteClient implements Commande{
      * @param idMessage l'id su message a supprimer
      * @return un message qui sera envoyer au serveur pour effectuer la suppresion sur toute les machines
      */
-    public String DeleteMessageClient(Client client, int idMessage){
+    public String deleteMessageClient(Client client, int idMessage){
       String data;
       try{
         this.messageBDD.effacerMessage(idMessage);

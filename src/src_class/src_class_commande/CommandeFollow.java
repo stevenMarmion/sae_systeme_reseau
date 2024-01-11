@@ -44,7 +44,7 @@ public class CommandeFollow implements Commande{
     public String follow(Client client, Client followUser){
       String data="";
       try {
-        client.ajouteAbonnement(followUser);
+        this.clientBDD.ajouterAbonnement(client.getUsername(), followUser.getUsername());
         data="commande: \n type:'"+this.getNom()+"' \n utilisateur:'"+followUser+"' \n utilisateurCommande='"+client.getUsername()+"'";
         return data;
       } catch (Exception e) {

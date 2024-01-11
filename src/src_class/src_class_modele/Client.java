@@ -238,8 +238,8 @@ public class Client {
 
     public void lien(String host,String port, String username){
         System.out.println(">> Client.lien entre sur l'adresse " + host + ", le port " + port + " avec un nom d'utilisateur " + username);
+        Scanner sc = new Scanner(System.in);
         try {
-            Scanner sc = new Scanner(System.in);
             this.socket= new Socket(host, Integer.parseInt(port));
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
@@ -261,6 +261,7 @@ public class Client {
                 System.out.println("\nMessage à envoyer:\n");
             }
         } catch (Exception e) {
+            sc.close();
             System.out.println("<< Client.lien sort en exeption");
         }
     }

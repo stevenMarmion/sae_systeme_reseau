@@ -15,8 +15,8 @@ public class MainServer {
         Server mainServer = new Server(InetAddress.getByName("localhost"));
 
         ArrayList<Commande> listeCommandes = new ArrayList<>();
-        Commande commandeDelete = new CommandeDeleteServer("delete", "1");
-        Commande commandeRemove = new CommandeRemove("remove", "2");
+        Commande commandeDelete = new CommandeDeleteServer("delete", "1", null, null);
+        Commande commandeRemove = new CommandeRemove("remove", "2", null, null);
 
         listeCommandes.add(commandeRemove);
         listeCommandes.add(commandeDelete);
