@@ -91,11 +91,11 @@ public class MessageBDD {
 		}
     } 
 
-	public void effacerMessage(int idMessage) throws SQLException {
+	public void effacerMessage(int idMessage, String expediteur) throws SQLException {
 		System.out.println(">> MessageBDD.effacerMessage entre avec le paramètre idMessage " + idMessage);
 		st = connection.createStatement();
-		try { 
-			st.executeQuery("delete from MESSAGE where id_message = " + String.valueOf(idMessage) + ";");
+		try {
+			st.executeQuery("delete from MESSAGE where id_message = " + String.valueOf(idMessage) + " and expediteur = '" + expediteur + "';");
 			System.out.println("<< MessageBDD.effacerMessage sort avec le message " + idMessage + " supprimé");
 		}
 		catch (SQLException e){

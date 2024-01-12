@@ -68,7 +68,7 @@ public class CommandeDeleteServer implements Commande {
    */
   public String deleteMessageByServeur(Client client, int idMessage) {
       try {
-          this.serveur.getMessageBDD().effacerMessage(idMessage);
+          this.serveur.getMessageBDD().effacerMessage(idMessage, client.getUsername());
           String data = "commande: \n type:'" + this.getNom() + "' \n idMessage:'" + idMessage +
                   "' \n utilisateurCommande = Serveur";
           return data;

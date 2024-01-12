@@ -148,7 +148,15 @@ public class ClientBDD {
         try {
             int idUtilisateurQuiSAbonne = getIdUtilisateurParUsername(utilisateurQuiSAbonne);
             int idUtilisateurSuivi = getIdUtilisateurParUsername(utilisateurSuivi);
-            if (idUtilisateurQuiSAbonne != -1 && idUtilisateurSuivi != -1) {
+            if (idUtilisateurQuiSAbonne == idUtilisateurSuivi) {
+                System.out.println("<< ClientBDD.ajouterAbonnement sort avec une erreur - Vous essayez de vous suivre vous même");
+            }
+            st=connection.createStatement();
+            ResultSet rs = st.executeQuery("select * from ABONNEMENTS where subscriber_id = " + idUtilisateurQuiSAbonne + " and subscribed_to_id = " + idUtilisateurSuivi + ";");
+            if (rs.next()) {
+                System.out.println("<< ClientBDD.ajouterAbonnement sort avec une erreur - Vous suivez déjà cet utilisateur");
+            }
+            else if (idUtilisateurQuiSAbonne != -1 && idUtilisateurSuivi != -1) {
                 PreparedStatement ps = connection.prepareStatement(
                         "INSERT INTO ABONNEMENTS (subscriber_id, subscribed_to_id) VALUES (?, ?)"
                 );
@@ -227,7 +235,15 @@ public class ClientBDD {
         try {
             int idUtilisateurQuiSDesAbonne = getIdUtilisateurParUsername(utilisateurQuiSDesAbonne);
             int idUtilisateurSuivi = getIdUtilisateurParUsername(utilisateurSuivi);
-            if (idUtilisateurQuiSDesAbonne != -1 && idUtilisateurSuivi != -1) {
+            st=connection.createStatement();
+            ResultSet rs = st.executeQuery("select * from ABONNEMENTS where subscriber_id = " + idUtilisateurQuiSDesAbonne + " and subscribed_to_id = " + idUtilisateurSuivi + ";");
+            if (idUtilisateurQuiSDesAbonne == idUtilisateurSuivi) {
+                System.out.println("<< ClientBDD.supprimerAbonnement sort avec une erreur - Vous essayez de vous désabonnez de vous même");
+            }
+            else if (!rs.next()) {
+                System.out.println("<< ClientBDD.supprimerAbonnement sort avec une erreur - Vous vous êtes déjà désabonnez de cet utilisateur");
+            }
+            else if (idUtilisateurQuiSDesAbonne != -1 && idUtilisateurSuivi != -1) {
                 try (PreparedStatement ps = connection.prepareStatement(
                         "DELETE FROM ABONNEMENTS WHERE subscriber_id = ? AND subscribed_to_id = ?"
                 )) {
