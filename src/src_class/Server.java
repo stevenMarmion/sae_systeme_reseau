@@ -6,7 +6,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +22,6 @@ import src_class.src_class_commande.CommandeFollow;
 import src_class.src_class_commande.CommandeLike;
 import src_class.src_class_commande.CommandeRemove;
 import src_class.src_class_commande.CommandeUnfollow;
-import src_class.src_class_modele.*;
 
 public class Server {
     private InetAddress ipServer;
@@ -34,39 +32,47 @@ public class Server {
     private MessageBDD messageBDD;
     private ConnectionBDD connectionBDD;
 
-    public Server(InetAddress ip, ArrayList<Commande> commandesServer, ArrayList<Commande> commandesClient) throws ClassNotFoundException {
+    public Server(InetAddress ip, ArrayList<Commande> commandesServer, ArrayList<Commande> commandesClient) throws ClassNotFoundException, SQLException {
         this.ipServer = ip;
         this.commandesServer = commandesServer;
         this.commandesClient = commandesClient;
-        // this.connectionBDD = new ConnectionBDD();
-        // this.clientBDD = new ClientBDD(connectionBDD);
-        // this.messageBDD = new MessageBDD(connectionBDD);
+        this.connecteServerBDD();
     }
 
     public Server(InetAddress ip) throws ClassNotFoundException, SQLException {
         System.out.println(">> Server.constructor entre ");
         this.ipServer = ip;
-        this.commandesServer = new ArrayList<>();
-        this.commandesClient = new ArrayList<>();
+        this.connecteServerBDD();
+        this.instancieCommandesClient(this);
+        this.instancieCommandesServer(this);
+        System.out.println(">> Server.constructor sort sans erreur");
+    }
+
+    public void connecteServerBDD() throws ClassNotFoundException, SQLException {
         this.connectionBDD = new ConnectionBDD();
         this.connectionBDD.connecter("localhost", "reseau_social", "steven", "s07012004");
         this.clientBDD = new ClientBDD(connectionBDD);
         this.messageBDD = new MessageBDD(connectionBDD);
+    }
 
-        Commande commandeDelete = new CommandeDeleteServer("delete", "1", messageBDD, clientBDD);
-        Commande commandeRemove = new CommandeRemove("remove", "2", clientBDD, messageBDD);
+    public void instancieCommandesServer(Server serveur) {
+        this.commandesServer = new ArrayList<>();
+        Commande commandeDelete = new CommandeDeleteServer(serveur);
+        Commande commandeRemove = new CommandeRemove(serveur);
         this.commandesServer.add(commandeDelete);
         this.commandesServer.add(commandeRemove);
+    }
 
-        Commande commandeFollow = new CommandeFollow(clientBDD);
-        Commande commandeUnfollow = new CommandeUnfollow(clientBDD);
-        Commande commandeLike = new CommandeLike("like", "5", messageBDD, clientBDD);
-        Commande commandeDeleteMessage = new CommandeDeleteClient("delete", "6", this.messageBDD, this.clientBDD);
+    public void instancieCommandesClient(Server serveur) {
+        this.commandesClient = new ArrayList<>();
+        Commande commandeFollow = new CommandeFollow(serveur);
+        Commande commandeUnfollow = new CommandeUnfollow(serveur);
+        Commande commandeLike = new CommandeLike(serveur);
+        Commande commandeDeleteMessage = new CommandeDeleteClient(serveur);
         this.commandesClient.add(commandeFollow);
         this.commandesClient.add(commandeUnfollow);
         this.commandesClient.add(commandeLike);
         this.commandesClient.add(commandeDeleteMessage);
-        System.out.println(">> Server.constructor sort ");
     }
 
     public InetAddress getIpServer() {
@@ -145,7 +151,7 @@ public class Server {
     }
 
     public void run() throws SQLException{
-        System.out.println(">> Server.run entre avec les commandes : " + this.getCommandesServer() +  " et tout les commandes client : " + this.getCommandesClient());
+        System.out.println(">> Server.run entre avec " + this.getCommandesServer().size() +  " commandes Server et " + this.getCommandesClient().size() + " commandes Client");
         while (true) {
             this.enAttenteConnexion(5555);
         }
@@ -166,12 +172,6 @@ public class Server {
             System.out.println("<< Server.enAttenteConnexion sort en exeption");
             e.printStackTrace();
         }
-    }
-
-    public void ajouteMessage(Message message) throws SQLException, ParseException {
-        System.out.println(">> Server.ajouteMessage entre avec le parametre " + message);
-        this.messageBDD.ajouterMessage(message);
-        System.out.println("<< Server.ajouteMessage sort");
     }
 
     public boolean estUneCommandeExistante(String commandeAvecParametre) throws UnknownHostException, SQLException {
@@ -205,12 +205,5 @@ public class Server {
     @Override
     public String toString() {
         return "Serveur définit par l'IP : " + getIpServer() + ", liste des commandes : " + getCommandesServer();
-    }
-
-    public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
-        Server server = new Server(InetAddress.getByName("localhost"));
-        while (true) {
-            server.enAttenteConnexion(5555);
-        }
     }
 }
