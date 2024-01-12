@@ -148,12 +148,12 @@ public class ClientBDD {
         try {
             int idUtilisateurQuiSAbonne = getIdUtilisateurParUsername(utilisateurQuiSAbonne);
             int idUtilisateurSuivi = getIdUtilisateurParUsername(utilisateurSuivi);
+            st=connection.createStatement();
+            ResultSet rs = st.executeQuery("select * from ABONNEMENTS where subscriber_id = " + idUtilisateurQuiSAbonne + " and subscribed_to_id = " + idUtilisateurSuivi + ";");
             if (idUtilisateurQuiSAbonne == idUtilisateurSuivi) {
                 System.out.println("<< ClientBDD.ajouterAbonnement sort avec une erreur - Vous essayez de vous suivre vous même");
             }
-            st=connection.createStatement();
-            ResultSet rs = st.executeQuery("select * from ABONNEMENTS where subscriber_id = " + idUtilisateurQuiSAbonne + " and subscribed_to_id = " + idUtilisateurSuivi + ";");
-            if (rs.next()) {
+            else if (rs.next()) {
                 System.out.println("<< ClientBDD.ajouterAbonnement sort avec une erreur - Vous suivez déjà cet utilisateur");
             }
             else if (idUtilisateurQuiSAbonne != -1 && idUtilisateurSuivi != -1) {
