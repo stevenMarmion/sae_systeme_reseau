@@ -36,6 +36,25 @@ public class ClientBDD {
         return null;
 	}
 
+    public Client getClientById(int idClient) throws SQLException, UnknownHostException {
+        try {
+            System.out.println("<< ClientBDD.getClientById entre avec le paramètre client " + String.valueOf(idClient));
+            st=connection.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM CLIENT where id_client = '" + String.valueOf(idClient) + "';");
+            rs.next();
+            Client client = new Client(InetAddress.getByName(rs.getString("ip")), String.valueOf(idClient));
+            rs.close();
+            client.setAbonnement(this.getAbonnements(client.getUsername()));
+            client.setMesMessage(this.getMessagePostes(client.getUsername()));
+            System.out.println(">> ClientBDD.getClientById sort avec le client : " + client);
+            return client;
+        } catch (SQLException e) {
+            System.out.println(">> ClientBDD.getClientById sort en exeption");
+            e.printStackTrace();
+        }
+        return null;
+	}
+
     public Client chargeInfos(InetAddress ip, String username) throws SQLException, UnknownHostException {
         System.out.println(">> ClientBDD.chargeInfos entre avec les paramètres client " + String.valueOf(ip) + " et le nom utilisateur " + username);
 		st=connection.createStatement();
@@ -68,7 +87,7 @@ public class ClientBDD {
 
     public ArrayList<Client> getAbonnements(String nomClient) throws SQLException, UnknownHostException {
         try {
-            System.out.println(">> ClientBDD.getAbonnements entre avec les paramètres client " + nomClient);
+            System.out.println(">> ClientBDD.getAbonnements entre avec le paramètres username " + nomClient);
             st=connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT c1.id AS UTILISATEUR_ID, " +
                                             "c1.username AS UTILISATEUR_USERNAME, " + 
