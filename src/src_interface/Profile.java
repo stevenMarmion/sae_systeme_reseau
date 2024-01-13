@@ -1,5 +1,6 @@
 package src_interface;
 
+import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,13 +11,20 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class Profil extends BorderPane {
+public class Profile extends Application {
 
     private Stage primaryStage;
 
-    public Profil(Stage primaryStage) {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setFullScreen(true);
+
+        BorderPane page = new BorderPane();
 
         // Nom de l'utilisateur
         Label usernameLabel = new Label("Nom de l'Utilisateur");
@@ -42,9 +50,13 @@ public class Profil extends BorderPane {
         HBox navigationBar = createNavigationBar();
 
         // Ajout des parties supérieure et inférieure à la page de profil
-        setTop(userInfoBox);
-        setCenter(postsBox);
-        setBottom(navigationBar);
+        page.setTop(userInfoBox);
+        page.setCenter(postsBox);
+        page.setBottom(navigationBar);
+
+        Scene scene = new Scene(page);
+
+        this.primaryStage.setScene(scene);
     }
 
     private VBox createPostsBox() {
@@ -98,30 +110,30 @@ public class Profil extends BorderPane {
     }
 
     private void showHomePage() {
-        Accueil homePage = new Accueil(primaryStage);
-        Scene homeScene = new Scene(homePage);
-        applyDarkTheme(homeScene);
+        // Accueil homePage = new Accueil(primaryStage);
+        // Scene homeScene = new Scene(homePage);
+        // applyDarkTheme(homeScene);
 
-        primaryStage.setScene(homeScene);
-        primaryStage.setFullScreen(true);
+        // primaryStage.setScene(homeScene);
+        // primaryStage.setFullScreen(true);
     }
 
     private void showSearchPage() {
-        Recherche searchPage = new Recherche(primaryStage);
-        Scene searchScene = new Scene(searchPage);
-        applyDarkTheme(searchScene);
+        // Recherche searchPage = new Recherche(primaryStage);
+        // Scene searchScene = new Scene(searchPage);
+        // applyDarkTheme(searchScene);
 
-        primaryStage.setScene(searchScene);
-        primaryStage.setFullScreen(true);
+        // primaryStage.setScene(searchScene);
+        // primaryStage.setFullScreen(true);
     }
 
-    private void applyDarkTheme(Scene scene) {
-        java.net.URL resourceUrl = ConnexionInscription.class.getResource("./darkTheme.css");
-        if (resourceUrl != null) {
-            String externalForm = resourceUrl.toExternalForm();
-            scene.getStylesheets().add(externalForm);
-        } else {
-            System.out.println("La ressource n'a pas été trouvée.");
-        }
-    }
+    // private void applyDarkTheme(Scene scene) {
+    //     java.net.URL resourceUrl = Profile.class.getResource("./darkTheme.css");
+    //     if (resourceUrl != null) {
+    //         String externalForm = resourceUrl.toExternalForm();
+    //         scene.getStylesheets().add(externalForm);
+    //     } else {
+    //         System.out.println("La ressource n'a pas été trouvée.");
+    //     }
+    // }
 }
