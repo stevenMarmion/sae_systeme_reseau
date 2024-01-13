@@ -93,7 +93,7 @@ public class Server {
                 Socket socketClient = this.serveurSocket.accept();
                 System.out.println("connexion d'un client");
                 Session sess = new Session(this,socketClient);
-                sess.mainSession();
+                sess.start();
             }
         }catch (IOException e) {
             e.printStackTrace();

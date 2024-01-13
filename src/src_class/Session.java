@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class Session {
+public class Session extends Thread{
     private Server serv;
     private Socket socket;
     private BufferedReader entre;
@@ -23,7 +23,7 @@ public class Session {
         }
     }
 
-    public void mainSession(){
+    public void run(){
         try{
             while(true){
                 String message = entre.readLine();
