@@ -1,12 +1,14 @@
-package src_class;
+package src_class.src_class_modele;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import src_class.Server;
+
 import java.net.InetAddress;
 
 import src_exception.ExceptionFollowUser;
@@ -17,9 +19,11 @@ public class Client {
     private InetAddress ip;
     private String username;
     private Socket socket;
-    private ArrayList<String> abonnement;
-    private ArrayList<String> abonnes;
+    private ArrayList<Client> abonnement;
+    private ArrayList<Client> abonnes;
     private ArrayList<Message> mesMessage;
+    private Server serveur;
+
 
     /**
      * Constructeur de la classe Client.
@@ -54,7 +58,7 @@ public class Client {
      * Récupère la liste des personnes suivies par le client.
      * @return La liste des personnes suivies par le client.
      */
-    public ArrayList<String> getAbonnement() {
+    public ArrayList<Client> getAbonnement() {
         return this.abonnement;
     }
 
@@ -62,8 +66,12 @@ public class Client {
      * Récupère la liste des abonnés du client.
      * @return La liste des abonnés du client.
      */
-    public ArrayList<String> getAbonnes() {
+    public ArrayList<Client> getAbonnes() {
         return this.abonnes;
+    }
+
+    public ArrayList<Message> getMessages() {
+        return this.mesMessage;
     }
 
     /**
@@ -93,6 +101,19 @@ public class Client {
             return false;
         }
     }
+    /**
+     * Ajoute un message par le client.
+     * @param message le message à ajouter à ces messages.
+     * @return true si l'ajout a réussi, sinon lance une exception.
+     * @throws ExceptionFollowUser si l'utilisateur est déjà suivi par ce client.
+     */
+    public boolean ajouteMessage(Message message) {
+        if (!getMessages().contains(message)) {
+            getMessages().add(message);
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Ajoute une personne suivie par le client.
@@ -100,7 +121,7 @@ public class Client {
      * @return true si l'ajout a réussi, sinon lance une exception.
      * @throws ExceptionFollowUser si l'utilisateur est déjà suivi par ce client.
      */
-    public boolean ajouteAbonnement(String utilisateur) throws ExceptionFollowUser {
+    public boolean ajouteAbonnement(Client utilisateur) throws ExceptionFollowUser {
         if (!getAbonnement().contains(utilisateur)) {
             getAbonnement().add(utilisateur);
             return true;
@@ -113,7 +134,7 @@ public class Client {
      * @return true si la suppression a réussi, sinon lance une exception.
      * @throws ExceptionUnfollowUsersi l'utilisateur n'est pas suivie par l'utilisateur.
      */
-    public boolean supprimeAbonnement(String utilisateur) throws ExceptionUnfollowUser {
+    public boolean supprimeAbonnement(Client utilisateur) throws ExceptionUnfollowUser {
         if (!getAbonnement().contains(utilisateur)) {
             getAbonnement().add(utilisateur);
             return true;
@@ -126,7 +147,7 @@ public class Client {
      * @param utilisateur Le client à ajouter à la liste des abonnés.
      * @return true si l'ajout a réussi, sinon false.
      */
-    public boolean ajouteAbonne(String utilisateur) {
+    public boolean ajouteAbonne(Client utilisateur) {
         if (!getAbonnes().contains(utilisateur)) {
             getAbonnes().add(utilisateur);
             return true;
@@ -144,6 +165,14 @@ public class Client {
         }
     }
 
+    public void setServeur(Server serveur) {
+        this.serveur = serveur;
+    }
+
+    public Server getServer() {
+        return this.serveur;
+    }
+
     /**
      * Met à jour le nom d'utilisateur du client.
      * @param newUsername Le nouveau nom d'utilisateur à définir.
@@ -153,6 +182,34 @@ public class Client {
             this.username = newUsername;
         }
     }
+
+        /**
+     * Met à jour la liste des personnes suivies par le client.
+     * 
+     * @param abonnement La nouvelle liste des personnes suivies à définir pour le client.
+     */
+    public void setAbonnement(ArrayList<Client> abonnement) {
+        this.abonnement = abonnement;
+    }
+
+    /**
+     * Met à jour la liste des abonnés du client.
+     * 
+     * @param abonnes La nouvelle liste des abonnés à définir pour le client.
+     */
+    public void setAbonnes(ArrayList<Client> abonnes) {
+        this.abonnes = abonnes;
+    }
+
+    /**
+     * Met à jour la liste des messages associés au client.
+     * 
+     * @param mesMessage La nouvelle liste de messages à associer au client.
+     */
+    public void setMesMessage(ArrayList<Message> mesMessage) {
+        this.mesMessage = mesMessage;
+    }
+
 
     public void lireMessage() {
         try {
@@ -179,23 +236,33 @@ public class Client {
         }
     }
 
-    public void lien(String host,String port){
+    public void lien(String host,String port, String username){
+        System.out.println(">> Client.lien entre sur l'adresse " + host + ", le port " + port + " avec un nom d'utilisateur " + username);
+        Scanner sc = new Scanner(System.in);
         try {
-            Scanner sc = new Scanner(System.in);
             this.socket= new Socket(host, Integer.parseInt(port));
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
-            System.out.println("message a envoyer:\n");
+            writer.println(username);
+            writer.flush();
+            System.out.println("\nMessage à envoyer:\n");
             while(true){
                 String text=sc.nextLine();
-                writer.println(text+"\n");
+                Message message = new Message(text, this.getUsername(), 0);
+                writer.println(message.getContenu() + "," +
+                               message.getNomExpediteur() +"," + 
+                               message.getDate() + "," + 
+                               message.getNombreLike() + "," + 
+                               message.getId());
                 writer.flush();
-                String message = reader.readLine();
-                System.out.println(message);
-                System.out.println("message a envoyer:\n");
+                String contenu = reader.readLine();
+                //this.getServer().ajouteMessage(message);
+                System.out.println(contenu);
+                System.out.println("\nMessage à envoyer:\n");
             }
         } catch (Exception e) {
-            // TODO: handle exception
+            sc.close();
+            System.out.println("<< Client.lien sort en exeption");
         }
     }
 
@@ -220,9 +287,5 @@ public class Client {
     @Override
     public String toString() {
         return "Client d'ip : " + getIp() + " et de username : " + getUsername();
-    }
-
-    public static void main(String[] args) throws IOException {
-        Client client = new Client(InetAddress.getByName("localhost"), "steven");
     }
 }

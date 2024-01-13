@@ -5,11 +5,27 @@
 Marmion Steven
 SIMON Gael
 
-## Branche
+## Contexte
 
-Cette branche est exclusivement utile au développement de la classe Client de l'application. Une instance qui prend les paramètres utiles à notre connexion et à l'envoie des message sur l'application.
+Développer une application client-serveur d’un réseau social : les utilisateurs peuvent publier des messages, et suivre d’autres utilisateurs pour consulter leurs publications.
 
-## Rendu intermédiaire
+## Projet
 
-Pour ce rendu, les classse demander son présente dans le dossier src_class (Session.java,Client.java et Server.java) et les tests sont dans le dossier src_test MainTestClient.java et MainTestServeur.java .
-Pour le bon fonctionnement des tests, il faut lancer le MainTestServeur avant de lancer le MainTestClient.
+L'application devra fonctions sous deux aspects :
+
+- le client qui doit se connecter au serveur pour afficher les messages des personnes qu’il suit et poster ses propres publications,
+- le serveur qui reçoit les messages, et les réexpédie aux bons utilisateurs.
+
+## Rendus
+
+### Rendu intermédiaire le 22/12/2023
+
+- Diagramme de classes
+- Une archive avec un prototype de l’application : un client et un serveur qui peuvent communiquer avec envois de messages simples (pas de commandes)
+
+### Rendu final Le 20/01/2024
+
+- Diagramme des classes final
+- Application fonctionnelle
+- Rapport : Manuel d’utilisation et justification des choix techniques
+- Documentation (javadoc)

@@ -2,27 +2,27 @@ package src_test;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import src_class.Server;
+import src_class.src_class_commande.Commande;
+import src_class.src_class_commande.CommandeDeleteServer;
+import src_class.src_class_commande.CommandeRemove;
 import src_exception.ExceptionCommandesAlreadyAdd;
 
 public class MainServer {
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args) throws UnknownHostException, ClassNotFoundException, SQLException {
         Server mainServer = new Server(InetAddress.getByName("localhost"));
 
-        ArrayList<String> listeCommandes = new ArrayList<>();
-        String commande1 = "delete";
-        String commande2 = "add";
-        String commande3 = "follow";
-        listeCommandes.add(commande1);
-        listeCommandes.add(commande2);
-        listeCommandes.add(commande3);
+        ArrayList<Commande> listeCommandes = new ArrayList<>();
+        Commande commandeDelete = new CommandeDeleteServer(mainServer);
+        Commande commandeRemove = new CommandeRemove(mainServer);
+
+        listeCommandes.add(commandeRemove);
+        listeCommandes.add(commandeDelete);
 
         try {
-            mainServer.ajouteListCommandes(listeCommandes); // true
-            mainServer.ajouteNouvelleCommandesServer(commande1); // lance une exception car la commande est déjà instanciée
-
-            mainServer.ajouteNouvelleCommandesServer("bonjour");   
+            mainServer.ajouteListCommandes(listeCommandes); // true 
         } catch (ExceptionCommandesAlreadyAdd e) {}
 
         try {

@@ -3,7 +3,7 @@ package src_test;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import src_class.Client;
+import src_class.src_class_modele.Client;
 import src_exception.ExceptionFollowUser;
 
 public class MainClient {
@@ -18,12 +18,12 @@ public class MainClient {
         Client clienTestTom = new Client(InetAddress.getByName(""), "tom");
 
         try {
-            System.out.println(premierClient.ajouteAbonnement(clienTestSamuel.getUsername())); // true
-            System.out.println(premierClient.ajouteAbonnement(clienTestTom.getUsername()));
-            System.out.println(premierClient.ajouteAbonnement(clienTestSamuel.getUsername())); // false car dèjà ajouté, lance l'exception
+            System.out.println(premierClient.ajouteAbonnement(clienTestSamuel)); // true
+            System.out.println(premierClient.ajouteAbonnement(clienTestTom));
+            System.out.println(premierClient.ajouteAbonnement(clienTestSamuel)); // false car dèjà ajouté, lance l'exception
 
-            System.out.println(deuxiemeClient.ajouteAbonnement(clienTestSamuel.getUsername())); // true
-            System.out.println(deuxiemeClient.ajouteAbonne(clienTestTom.getUsername()));
+            System.out.println(deuxiemeClient.ajouteAbonnement(clienTestSamuel)); // true
+            System.out.println(deuxiemeClient.ajouteAbonne(clienTestTom));
         } catch (ExceptionFollowUser e) {}
     }
 }

@@ -1,5 +1,6 @@
-package src_class;
-import java.util.Date;
+package src_class.src_class_modele;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class Message {
 
@@ -7,18 +8,26 @@ public class Message {
 
     private String nomExpediteur;
 
-    private Date date;
+    private java.sql.Date date;
 
     private int nombreLike;
 
     private int identifiantPost;
 
-    public Message(String contenu,String nomExpediteur,int nombreLike){
-        this.contenu=contenu;
-        this.date=new Date();
-        this.nombreLike=nombreLike;
-
+    public Message(String contenu, String nomExpediteur, int nombreLike){
+        this.contenu = contenu;
+        this.nomExpediteur = nomExpediteur;
+        this.date = java.sql.Date.valueOf(LocalDate.now());
+        this.nombreLike = nombreLike;
     }
+
+    public Message(String contenu, String nomExpediteur, int nombreDeLike, Date date) {
+        this.contenu = contenu;
+        this.nomExpediteur = nomExpediteur;
+        this.date = date;
+        this.nombreLike = nombreDeLike;
+    }
+
     // getteur et setteur de la classe message
     public String getContenu() {
         return contenu;
@@ -36,12 +45,12 @@ public class Message {
         this.nomExpediteur = nomExpediteur;
     }
 
-    public Date getDate() {
+    public java.sql.Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(java.sql.Date date2) {
+        this.date = date2;
     }
 
     public int getNombreLike() {
@@ -75,4 +84,9 @@ public class Message {
         String data="message : \n contenu : '"+this.contenu+"' \n expediteur : '"+this.nomExpediteur+"' \n date : '"+this.date+"' \n nombreLike : '"+this.nombreLike+"' \n id : '"+this.identifiantPost+"'";
         return data;
     }
+
+    @Override
+    public String toString(){
+        return "message : \n contenu : '"+this.contenu+"' \n expediteur : '"+this.nomExpediteur+"' \n date : '"+this.date+"' \n nombreLike : '"+this.nombreLike+"' \n id : '"+this.identifiantPost+"'";
     }
+}
