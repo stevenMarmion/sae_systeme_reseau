@@ -50,7 +50,7 @@ public class Server {
 
     public void connecteServerBDD() throws ClassNotFoundException, SQLException {
         this.connectionBDD = new ConnectionBDD();
-        this.connectionBDD.connecter("localhost", "reseau_social", "steven", "s07012004");
+        this.connectionBDD.connecter("localhost", "reseau_social", "root", "simon");
         this.clientBDD = new ClientBDD(connectionBDD);
         this.messageBDD = new MessageBDD(connectionBDD);
     }
@@ -165,8 +165,9 @@ public class Server {
                 Socket socketClient = this.serveurSocket.accept();
                 System.out.println("connexion d'un client");
                 InetAddress ip = socketClient.getInetAddress();
-                Session sess = new Session(this,socketClient);
-                sess.mainSession(ip);
+                Session sess = new Session(this,socketClient,ip);
+                sess.start();
+                System.out.println("ok");
             }
         }catch (IOException e) {
             System.out.println("<< Server.enAttenteConnexion sort en exeption");
