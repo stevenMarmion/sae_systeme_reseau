@@ -4,7 +4,9 @@
             "lib/**/*.jar",
             "mysql-connector-j-8.1.0.jar",
             "/usr/share/java/mariadb-java-client.jar",
-            "mariadb-java-client.jar"
+            "mariadb-java-client.jar",
+            "c:\\bibli\\driver_SQL_java\\mariadb-java-client-3.2.0.jar",
+            "c:\\bibli\\driver_SQL_java\\mysql-connector-j-8.1.0.jar"
         ],
         "exclude": [
             "mysql-connector-j-8.2.0.jar"

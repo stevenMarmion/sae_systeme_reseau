@@ -22,11 +22,13 @@ public class Session extends Thread{
     private Socket socket;
     private BufferedReader entre;
     private PrintWriter sortie;
+    private InetAddress ip;
 
-    public Session(Server serv, Socket socket) {
+    public Session(Server serv, Socket socket, InetAddress ip) {
         try{
         this.serv = serv;
         this.socket = socket;
+        this.ip = ip;
         this.entre = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.sortie = new PrintWriter(socket.getOutputStream(), false);
         }catch(Exception e){
@@ -38,12 +40,12 @@ public class Session extends Thread{
         return this.socket;
     }
 
-    public void run(InetAddress ip){
+    public void run(){
         System.out.println(">> Session.mainSession entre avec l'adresse ip du client : " + String.valueOf(ip));
         try{
             String usernameClient = entre.readLine();
             System.out.println("\nClient avec username : " + usernameClient + " se connecte / s'inscrit\n");
-            this.userExistant(ip, usernameClient);
+            this.userExistant(this.ip, usernameClient);
             while(true){
                 String message = entre.readLine();
                 Message messageReconsituer = this.reconstitueMessage(message);

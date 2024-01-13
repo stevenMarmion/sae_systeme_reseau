@@ -2,16 +2,18 @@ package src_test;
 
 import java.net.InetAddress;
 
-import src_class.Client;
+import src_class.src_class_modele.Client;
 
 public class MainTestClient2 {
     public static void main(String[] args) {
+        System.out.println(">> MainTestClient.main entre ");
         try {
-            Client client = new Client(InetAddress.getByName("127.0.0.2"), "test2");
-            client.lien("localhost", "5555");
+            String username = "Steven";
+            Client client = new Client(InetAddress.getByName("127.0.0.2"), username);
+            client.lien("localhost", "5555", username);
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println(">> MainTestClient.main sort en exeption ");
         }
+    }
         
     }
-}
