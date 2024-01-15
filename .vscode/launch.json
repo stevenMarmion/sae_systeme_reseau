@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ConnexionInscription",
+            "request": "launch",
+            "mainClass": "src_interface.ConnexionInscription",
+            "projectName": "sae_systeme_reseau_29d88a53"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "src_interface.App",

@@ -16,6 +16,10 @@ public class ConnexionInscription extends Application {
     private Scene loginScene;
     private Scene registrationScene;
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
