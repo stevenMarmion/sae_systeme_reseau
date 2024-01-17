@@ -116,7 +116,7 @@ public class Profil extends BorderPane {
     }
 
     private void applyDarkTheme(Scene scene) {
-        java.net.URL resourceUrl = ConnexionInscription.class.getResource("./darkTheme.css");
+        java.net.URL resourceUrl = ConnexionInscription.class.getResource("./src_interface_style/darkTheme.css");
         if (resourceUrl != null) {
             String externalForm = resourceUrl.toExternalForm();
             scene.getStylesheets().add(externalForm);

@@ -6,7 +6,8 @@
             "name": "ConnexionInscription",
             "request": "launch",
             "mainClass": "src_interface.ConnexionInscription",
-            "projectName": "sae_systeme_reseau_29d88a53"
+            "projectName": "sae_systeme_reseau_29d88a53",
+            "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls"
         },
         {
             "type": "java",
