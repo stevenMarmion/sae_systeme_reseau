@@ -1,0 +1,22 @@
+.root {
+    -fx-background-color: #1F1F2A;
+}
+
+.label {
+    -fx-text-fill: white;
+}
+
+.text-field,
+.password-field,
+.button {
+    -fx-background-color: #272838;
+    -fx-text-fill: white;
+}
+
+.hyperlink {
+    -fx-text-fill: #3498db;
+}
+
+.scroll-pane {
+    -fx-background: #272838;
+}

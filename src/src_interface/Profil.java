@@ -11,16 +11,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class Profile extends Application {
+public class Profil extends BorderPane {
 
     private Stage primaryStage;
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
+    public Profil(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setFullScreen(true);
 
@@ -110,30 +105,30 @@ public class Profile extends Application {
     }
 
     private void showHomePage() {
-        // Accueil homePage = new Accueil(primaryStage);
-        // Scene homeScene = new Scene(homePage);
-        // applyDarkTheme(homeScene);
+        Accueil homePage = new Accueil(primaryStage);
+        Scene homeScene = new Scene(homePage);
+        applyDarkTheme(homeScene);
 
-        // primaryStage.setScene(homeScene);
-        // primaryStage.setFullScreen(true);
+        primaryStage.setScene(homeScene);
+        primaryStage.setFullScreen(true);
     }
 
     private void showSearchPage() {
-        // Recherche searchPage = new Recherche(primaryStage);
-        // Scene searchScene = new Scene(searchPage);
-        // applyDarkTheme(searchScene);
+        Recherche searchPage = new Recherche(primaryStage);
+        Scene searchScene = new Scene(searchPage);
+        applyDarkTheme(searchScene);
 
-        // primaryStage.setScene(searchScene);
-        // primaryStage.setFullScreen(true);
+        primaryStage.setScene(searchScene);
+        primaryStage.setFullScreen(true);
     }
 
-    // private void applyDarkTheme(Scene scene) {
-    //     java.net.URL resourceUrl = Profile.class.getResource("./darkTheme.css");
-    //     if (resourceUrl != null) {
-    //         String externalForm = resourceUrl.toExternalForm();
-    //         scene.getStylesheets().add(externalForm);
-    //     } else {
-    //         System.out.println("La ressource n'a pas été trouvée.");
-    //     }
-    // }
+    private void applyDarkTheme(Scene scene) {
+        java.net.URL resourceUrl = ConnexionInscription.class.getResource("./src_interface_style/darkTheme.css");
+        if (resourceUrl != null) {
+            String externalForm = resourceUrl.toExternalForm();
+            scene.getStylesheets().add(externalForm);
+        } else {
+            System.out.println("La ressource n'a pas été trouvée.");
+        }
+    }
 }
