@@ -78,7 +78,7 @@ public class Session extends Thread{
         List<String> listeLignes = new ArrayList<>();
         Collections.addAll(listeLignes, lignes);
         Message res = new Message(listeLignes.get(0), listeLignes.get(1), Integer.parseInt(listeLignes.get(3)));
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         try {
             Date date = formatter.parse(listeLignes.get(2));
             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
