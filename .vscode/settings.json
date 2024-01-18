@@ -32,5 +32,6 @@
         "exclude": [
             "mysql-connector-j-8.2.0.jar"
         ]
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
