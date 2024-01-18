@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ClientTest",
+            "request": "launch",
+            "mainClass": "src_test.ClientTest",
+            "projectName": "sae_systeme_reseau_2a5fb33"
+        },
+        {
+            "type": "java",
+            "name": "MainServer",
+            "request": "launch",
+            "mainClass": "src_test.MainServer",
+            "projectName": "sae_systeme_reseau_2a5fb33"
+        },
+        {
+            "type": "java",
             "name": "MainTestClient1",
             "request": "launch",
             "mainClass": "src_test.MainTestClient1",

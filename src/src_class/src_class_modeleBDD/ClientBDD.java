@@ -153,7 +153,7 @@ public class ClientBDD {
             ps.setString(1, username);
             ps.setString(2, String.valueOf(ip).substring(1, String.valueOf(ip).length()));
             ps.executeUpdate();
-            System.out.println("<< ClientBDD.ajouterClient sort un client ajouté");
+            System.out.println("<< ClientBDD.ajouterClient sort avec un client ajouté");
 		}
 		catch (SQLException e){
             e.printStackTrace();

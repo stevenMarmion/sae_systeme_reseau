@@ -1,4 +1,4 @@
-package src_test;
+package src_main;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

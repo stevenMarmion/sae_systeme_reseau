@@ -36,6 +36,10 @@ public class Session extends Thread{
         }
     }
 
+    public Server getServer() {
+        return this.serv;
+    }
+
     public Socket getSocket() {
         return this.socket;
     }
