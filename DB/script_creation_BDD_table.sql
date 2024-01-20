@@ -2,6 +2,7 @@ CREATE TABLE CLIENT (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL,
     ip TEXT NOT NULL,
+    isAdmin INTEGER,
     INDEX (username)
 ); -- INDEX permet de pouvoir avoir le référencement sur la table Message
 

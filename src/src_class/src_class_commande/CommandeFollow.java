@@ -69,6 +69,10 @@ public class CommandeFollow implements Commande {
       String data = "";
       try {
           this.serveur.getClientBDD().ajouterAbonnement(client.getUsername(), followUser.getUsername());
+          client.ajouteAbonnement(followUser);
+          followUser.ajouteAbonne(client);
+          System.out.println(client.getAbonnement());
+          System.out.println(followUser.getAbonnes());
           data = "commande: \n type:'" + this.getNom() + "' \n utilisateur:'" + followUser.getUsername() +
                   "' \n utilisateurCommande='" + client.getUsername() + "'";
           return data;

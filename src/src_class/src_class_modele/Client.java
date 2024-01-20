@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 import src_class.Server;
@@ -136,7 +138,15 @@ public class Client {
      */
     public boolean supprimeAbonnement(Client utilisateur) throws ExceptionUnfollowUser {
         if (!getAbonnement().contains(utilisateur)) {
-            getAbonnement().add(utilisateur);
+            getAbonnement().remove(utilisateur);
+            return true;
+        }
+        throw new ExceptionUnfollowUser(utilisateur);
+    }
+
+    public boolean supprimerAbonnes(Client utilisateur) throws ExceptionUnfollowUser {
+        if (!getAbonnes().contains(utilisateur)) {
+            getAbonnes().remove(utilisateur);
             return true;
         }
         throw new ExceptionUnfollowUser(utilisateur);
@@ -240,30 +250,49 @@ public class Client {
         System.out.println(">> Client.lien entre sur l'adresse " + host + ", le port " + port + " avec un nom d'utilisateur " + username);
         Scanner sc = new Scanner(System.in);
         try {
+            
             this.socket= new Socket(host, Integer.parseInt(port));
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
+
             writer.println(username);
             writer.flush();
             System.out.println("\nMessage à envoyer:\n");
+
             while(true){
                 String text=sc.nextLine();
                 Message message = new Message(text, this.getUsername(), 0);
-                writer.println(message.getContenu() + "," +
-                               message.getNomExpediteur() +"," + 
-                               message.getDate() + "," + 
-                               message.getNombreLike() + "," + 
-                               message.getId());
+                writer.println(message.getContenu() + ";" +
+                            message.getNomExpediteur() +";" + 
+                            message.getDate() + ";" + 
+                            message.getNombreLike() + ";");
                 writer.flush();
                 String contenu = reader.readLine();
-                //this.getServer().ajouteMessage(message);
                 System.out.println(contenu);
+
+                if (contenu.startsWith("Profil")) {
+                    System.out.println(this.reconstitueProfil(contenu));
+                    writer.println("profil");
+                    writer.flush();
+                }
+
                 System.out.println("\nMessage à envoyer:\n");
             }
         } catch (Exception e) {
             sc.close();
             System.out.println("<< Client.lien sort en exeption");
         }
+    }
+
+    public String reconstitueProfil(String messageSrc) {
+        String[] lignes = messageSrc.split(";");
+        List<String> listeLignes = new ArrayList<>();
+        Collections.addAll(listeLignes, lignes);
+        String affichageProfil = listeLignes.get(0) + "\n";
+        affichageProfil += "\t" + listeLignes.get(1) + "\n";
+        affichageProfil += "\t" + listeLignes.get(2) + "\n";
+        affichageProfil += "\t" + listeLignes.get(3);
+        return affichageProfil;
     }
 
     /**

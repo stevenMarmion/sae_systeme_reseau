@@ -1,2 +1,2 @@
-insert into CLIENT (username, ip) values
-    ("serveur", "localhost");
+insert into CLIENT (username, ip, isAdmin) values
+    ("serveur", "localhost", 1);
