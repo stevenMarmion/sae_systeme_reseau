@@ -1,0 +1,133 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "MainTestClient1",
+            "request": "launch",
+            "mainClass": "src_main.MainTestClient1",
+            "projectName": "sae_systeme_reseau_bc4ec9e4"
+        },
+        {
+            "type": "java",
+            "name": "MainTestClient2",
+            "request": "launch",
+            "mainClass": "src_main.MainTestClient2",
+            "projectName": "sae_systeme_reseau_bc4ec9e4"
+        },
+        {
+            "type": "java",
+            "name": "MainTestServeur",
+            "request": "launch",
+            "mainClass": "src_main.MainTestServeur",
+            "projectName": "sae_systeme_reseau_bc4ec9e4"
+        },
+        {
+            "type": "java",
+<<<<<<< HEAD
+=======
+            "name": "MainTestClient2",
+            "request": "launch",
+            "mainClass": "src_main.MainTestClient2",
+            "projectName": "sae_systeme_reseau_658e5fe6"
+        },
+        {
+            "type": "java",
+            "name": "MainTestClient1",
+            "request": "launch",
+            "mainClass": "src_main.MainTestClient1",
+            "projectName": "sae_systeme_reseau_658e5fe6"
+        },
+        {
+            "type": "java",
+            "name": "MainTestServeur",
+            "request": "launch",
+            "mainClass": "src_main.MainTestServeur",
+            "projectName": "sae_systeme_reseau_658e5fe6"
+        },
+        {
+            "type": "java",
+            "name": "MainServer",
+            "request": "launch",
+            "mainClass": "src_main.MainServer",
+            "projectName": "sae_systeme_reseau_658e5fe6"
+        },
+        {
+            "type": "java",
+            "name": "ServerClient",
+            "request": "launch",
+            "mainClass": "src_client_serveur.ServerClient",
+            "projectName": "sae_systeme_reseau_658e5fe6"
+        },
+        {
+            "type": "java",
+>>>>>>> develop
+            "name": "ClientTest",
+            "request": "launch",
+            "mainClass": "src_test.ClientTest",
+            "projectName": "sae_systeme_reseau_2a5fb33"
+        },
+        {
+            "type": "java",
+            "name": "MainServer",
+            "request": "launch",
+            "mainClass": "src_test.MainServer",
+            "projectName": "sae_systeme_reseau_2a5fb33"
+        },
+        {
+            "type": "java",
+            "name": "MainTestClient1",
+            "request": "launch",
+            "mainClass": "src_test.MainTestClient1",
+            "projectName": "sae_systeme_reseau_2a5fb33"
+        },
+        {
+            "type": "java",
+            "name": "MainTestServeur",
+            "request": "launch",
+            "mainClass": "src_test.MainTestServeur",
+            "projectName": "sae_systeme_reseau_2a5fb33"
+        },
+        {
+            "type": "java",
+            "name": "ConnexionInscription",
+            "request": "launch",
+            "mainClass": "src_interface.ConnexionInscription",
+            "projectName": "sae_systeme_reseau_29d88a53",
+            "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "src_interface.App",
+            "projectName": "sae_systeme_reseau_60c6aa04"
+        },
+        {
+            "name": "JavaFX App",
+            "type": "java",
+            "request": "launch",
+            "mainClass": "src.src_interface.App",
+            "projectName": "sae_systeme_reseau_60c6aa04",
+            "args": "",
+            "vmArgs": "--module-path ./javafx-sdk-21.0.1/lib --add-modules javafx.controls,javafx.fxml",
+            "cwd": "${workspaceFolder}",
+            "sourcePaths": [
+                "${workspaceFolder}/src"
+            ],
+            "classpath": [
+                "${workspaceFolder}/bin",
+                "./javafx-sdk-21.0.1/lib/javafx.base.jar",
+                "./javafx-sdk-21.0.1/lib/javafx.controls.jar",
+                "./javafx-sdk-21.0.1/lib/javafx.fxml.jar",
+                "./javafx-sdk-21.0.1/lib/javafx.graphics.jar",
+                "./javafx-sdk-21.0.1/lib/javafx.media.jar",
+                "./javafx-sdk-21.0.1/lib/javafx.swing.jar",
+                "./javafx-sdk-21.0.1/lib/javafx.web.jar"
+            ],
+            "modulePaths": [
+                "./javafx-sdk-21.0.1/lib"
+            ]
+        }
+    ]
+}
