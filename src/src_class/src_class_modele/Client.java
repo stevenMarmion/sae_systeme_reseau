@@ -255,7 +255,7 @@ public class Client {
                                message.getNombreLike() + "," + 
                                message.getId());
                 writer.flush();
-                String contenu = reader.readLine();
+                String contenu = reader.readLine().replace("||newline||", "\n");
                 //this.getServer().ajouteMessage(message);
                 System.out.println(contenu);
                 System.out.println("\nMessage à envoyer:\n");

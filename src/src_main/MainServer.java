@@ -10,7 +10,7 @@ public class MainServer {
         try {
             String username = "serveur";
             Client client = new Client(InetAddress.getByName("127.0.0.1"), username);
-            client.lien("localhost", "5555", username);
+            client.lien("localhost", "5556", username);
         } catch (Exception e) {
             System.out.println(">> MainTestClient.main sort en exeption ");
         }
