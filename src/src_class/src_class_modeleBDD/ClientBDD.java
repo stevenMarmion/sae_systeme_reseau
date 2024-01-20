@@ -144,6 +144,54 @@ public class ClientBDD {
         return null;
 	}
 
+    public int getNombreAbonnements(String nomClient) throws SQLException {
+        try {
+            System.out.println(">> ClientBDD.getNombreAbonnements entre avec le paramètre username " + nomClient);
+            st = connection.createStatement();
+            ResultSet rs = st.executeQuery("SELECT COUNT(*) AS nombreAbonnements " +
+                                          "FROM ABONNEMENTS a " +
+                                          "JOIN CLIENT c ON a.subscriber_id = c.id " +
+                                          "WHERE c.username = '" + nomClient + "';");
+    
+            int nombreAbonnements = 0;
+            if (rs.next()) {
+                nombreAbonnements = rs.getInt("nombreAbonnements");
+            }
+    
+            rs.close();
+            System.out.println("<< ClientBDD.getNombreAbonnements sort avec le nombre d'abonnements " + nombreAbonnements);
+            return nombreAbonnements;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getNombreAbonnes(String nomClient) throws SQLException {
+        try {
+            System.out.println(">> ClientBDD.getNombreAbonnes entre avec le paramètre username " + nomClient);
+            st = connection.createStatement();
+            ResultSet rs = st.executeQuery("SELECT COUNT(*) AS nombreAbonnes " +
+                                          "FROM ABONNEMENTS a " +
+                                          "JOIN CLIENT c ON a.subscribed_to_id = c.id " +
+                                          "WHERE c.username = '" + nomClient + "';");
+    
+            int nombreAbonnes = 0;
+            if (rs.next()) {
+                nombreAbonnes = rs.getInt("nombreAbonnes");
+            }
+    
+            rs.close();
+            System.out.println("<< ClientBDD.getNombreAbonnes sort avec le nombre d'abonnés " + nombreAbonnes);
+            return nombreAbonnes;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    
+
     public void ajouterClient(String username, InetAddress ip) throws SQLException {
         System.out.println(">> ClientBDD.ajouterClient entre avec les paramètres client " + username + " et l'adresse ip " + String.valueOf(ip));
         try {

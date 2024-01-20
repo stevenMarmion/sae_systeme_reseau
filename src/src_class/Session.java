@@ -65,8 +65,8 @@ public class Session extends Thread{
                 else if(messageReconsituer.getContenu().startsWith("profil") || messageReconsituer.getContenu().startsWith("PROFIL")){
                     System.out.println(">> Préparation de l'envoi du profil utilisateur");
                     String username = client.getUsername();
-                    int abonnes = client.getAbonnes().size();
-                    int abonnements = client.getAbonnement().size();
+                    int abonnes = this.serv.getClientBDD().getNombreAbonnes(username);
+                    int abonnements = this.serv.getClientBDD().getNombreAbonnements(username);
                     String profil = "Profil : ;Username : " + username+";Abonnés : " + String.valueOf(abonnes)+";Abonnements : " + String.valueOf(abonnements)+";";
                     System.out.println("<< Finition de l'envoi du profil utilisateur sans erreur");
                     sortie.println(profil + "\n");
