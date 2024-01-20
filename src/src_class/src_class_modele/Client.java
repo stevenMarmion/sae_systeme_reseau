@@ -265,15 +265,16 @@ public class Client {
                 writer.println(message.getContenu() + ";" +
                             message.getNomExpediteur() +";" + 
                             message.getDate() + ";" + 
-                            message.getNombreLike() + ";");
+                            message.getNombreLike() + ";" + 
+                            message.getId());
                 writer.flush();
                 String contenu = reader.readLine();
-                System.out.println(contenu);
+                while ((contenu == null) || (contenu.equals(""))) {
+                    contenu = reader.readLine();
+                }
 
                 if (contenu.startsWith("Profil")) {
-                    System.out.println(this.reconstitueProfil(contenu));
-                    writer.println("profil");
-                    writer.flush();
+                    System.out.println("\n" + this.reconstitueProfil(contenu) + "\n");
                 }
 
                 System.out.println("\nMessage à envoyer:\n");
