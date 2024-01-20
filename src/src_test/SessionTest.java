@@ -14,6 +14,7 @@ import java.util.Locale;
 
 import src_class.Server;
 import src_class.Session;
+import src_class.src_class_modele.Client;
 import src_class.src_class_modele.Message;
 
 public class SessionTest {
@@ -78,14 +79,14 @@ public class SessionTest {
         System.setOut(new PrintStream(output));
 
         // Test userExistant
-        boolean result = session.userExistant(InetAddress.getLoopbackAddress(), "John");
+        Client result = session.userExistant(InetAddress.getLoopbackAddress(), "John");
 
-        assert result : "Erreur lors du test de userExistant (nouvel utilisateur)";
+        assert result != null : "Erreur lors du test de userExistant (nouvel utilisateur)";
         assert output.toString().contains("utilisateur inconnu") : "Erreur lors du test de userExistant (message pour nouvel utilisateur)";
 
         result = session.userExistant(InetAddress.getLoopbackAddress(), "John");
 
-        assert !result : "Erreur lors du test de userExistant (utilisateur existant)";
+        assert result != null : "Erreur lors du test de userExistant (utilisateur existant)";
         assert output.toString().contains("utilisateur existant") : "Erreur lors du test de userExistant (message pour utilisateur existant)";
 
         System.out.println("Test de userExistant réussi");

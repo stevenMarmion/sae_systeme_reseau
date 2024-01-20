@@ -24,6 +24,8 @@
         },
         {
             "type": "java",
+<<<<<<< HEAD
+=======
             "name": "MainTestClient2",
             "request": "launch",
             "mainClass": "src_main.MainTestClient2",
@@ -59,6 +61,7 @@
         },
         {
             "type": "java",
+>>>>>>> develop
             "name": "ClientTest",
             "request": "launch",
             "mainClass": "src_test.ClientTest",

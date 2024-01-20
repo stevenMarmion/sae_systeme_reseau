@@ -70,6 +70,8 @@ public class CommandeUnfollow implements Commande {
       String data;
       try {
           this.serveur.getClientBDD().supprimerAbonnement(client.getUsername(), unfollowUser.getUsername());
+          client.supprimeAbonnement(unfollowUser);
+          unfollowUser.supprimerAbonnes(client);
           data = "commande: \n type:'" + this.getNom() + "' \n utilisateur:'" + unfollowUser.getUsername() +
                   "' \n utilisateurCommande='" + client.getUsername() + "'";
           return data;

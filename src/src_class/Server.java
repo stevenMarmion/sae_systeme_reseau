@@ -182,32 +182,41 @@ public class Server {
         }
     }
 
-    public boolean estUneCommandeExistante(String commandeAvecParametre) throws UnknownHostException, SQLException {
+    public String estUneCommandeExistante(String commandeAvecParametre) throws UnknownHostException, SQLException {
         System.out.println(">> Server.estUneCommandeExistante entre avec le parametre " + commandeAvecParametre);
 
         String[] nomCommande = commandeAvecParametre.split(" ");
         List<String> listeLignes = new ArrayList<>();
         Collections.addAll(listeLignes, nomCommande);
 
-        String commande = listeLignes.get(0);
-        String param = listeLignes.get(1);
-        String username = listeLignes.get(2);
+        String commande = "";
+        String param = "";
+        String username = "";
 
+        if (listeLignes.size()==3) {
+            commande = listeLignes.get(0);
+            param = listeLignes.get(1);
+            username = listeLignes.get(2);
+        }
+        else {
+            System.out.println("<< Server.estUneCommandeExistante sort sans supprimé");
+            return null;
+        }
         for (Commande commandeClient : getCommandesClient()) {
             if (commandeClient.getNom().equals(commande)) {
                 String response = commandeClient.agis(param, username);
                 if (response == null) {
                     System.out.println("<< Server.estUneCommandeExistante sort sans supprimé");
-                    return false;
+                    return null;
                 }
                 else {
                     System.out.println("<< Server.estUneCommandeExistante sort en ayant supprimé");
-                    return true;
+                    return "Action réussi !";
                 }
             }
         }
         System.out.println("<< Server.estUneCommandeExistante sort sans supprimé");
-        return false;
+        return null;
     }
 
     @Override
