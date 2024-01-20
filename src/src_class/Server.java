@@ -22,6 +22,7 @@ import src_class.src_class_commande.CommandeFollow;
 import src_class.src_class_commande.CommandeLike;
 import src_class.src_class_commande.CommandeRemove;
 import src_class.src_class_commande.CommandeUnfollow;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Server {
     private InetAddress ipServer;
@@ -31,6 +32,8 @@ public class Server {
     private ClientBDD clientBDD;
     private MessageBDD messageBDD;
     private ConnectionBDD connectionBDD;
+    private ReentrantLock lock = new ReentrantLock();
+
 
     public Server(InetAddress ip, ArrayList<Commande> commandesServer, ArrayList<Commande> commandesClient) throws ClassNotFoundException, SQLException {
         this.ipServer = ip;
@@ -93,6 +96,10 @@ public class Server {
 
     public ClientBDD getClientBDD() {
         return this.clientBDD;
+    }
+
+    public synchronized ReentrantLock getReentrantLock(){
+        return this.lock;
     }
 
     public boolean setIpServer(InetAddress ip) throws ExceptionIpAlreadyDefined, ExceptionIpEmpty {
@@ -175,7 +182,7 @@ public class Server {
         }
     }
 
-    public boolean estUneCommandeExistante(String commandeAvecParametre) throws UnknownHostException, SQLException {
+    public String estUneCommandeExistante(String commandeAvecParametre) throws UnknownHostException, SQLException {
         System.out.println(">> Server.estUneCommandeExistante entre avec le parametre " + commandeAvecParametre);
 
         String[] nomCommande = commandeAvecParametre.split(" ");
@@ -193,23 +200,23 @@ public class Server {
         }
         else {
             System.out.println("<< Server.estUneCommandeExistante sort sans supprimé");
-            return false;
+            return null;
         }
         for (Commande commandeClient : getCommandesClient()) {
             if (commandeClient.getNom().equals(commande)) {
                 String response = commandeClient.agis(param, username);
                 if (response == null) {
                     System.out.println("<< Server.estUneCommandeExistante sort sans supprimé");
-                    return false;
+                    return null;
                 }
                 else {
                     System.out.println("<< Server.estUneCommandeExistante sort en ayant supprimé");
-                    return true;
+                    return "Action réussi !";
                 }
             }
         }
         System.out.println("<< Server.estUneCommandeExistante sort sans supprimé");
-        return false;
+        return null;
     }
 
     @Override

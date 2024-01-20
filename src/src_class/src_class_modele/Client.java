@@ -261,6 +261,7 @@ public class Client {
 
             while(true){
                 String text=sc.nextLine();
+
                 Message message = new Message(text, this.getUsername(), 0);
                 writer.println(message.getContenu() + ";" +
                             message.getNomExpediteur() +";" + 
@@ -268,15 +269,35 @@ public class Client {
                             message.getNombreLike() + ";" + 
                             message.getId());
                 writer.flush();
+
                 String contenu = reader.readLine();
+
                 while ((contenu == null) || (contenu.equals(""))) {
                     contenu = reader.readLine();
                 }
 
-                if (contenu.startsWith("Profil")) {
+                if (text.toLowerCase().startsWith("quit")) {
+                    break;
+                }
+
+                else if (text.toLowerCase().startsWith("profil")) {
                     System.out.println("\n" + this.reconstitueProfil(contenu) + "\n");
                 }
 
+                else if (text.toLowerCase().startsWith("consulter")) {
+                    if (contenu.equals("||newLine||")) {
+                        System.out.println("Aucun nouveau message, pensez à vous abonnez à d'autres personne :)\n");
+                    }
+                    else {
+                        String consultation = contenu.replace("||newline||", "\n");
+                        System.out.println(consultation);
+                    }
+                }
+
+                else {
+                    System.out.println(contenu);
+                }
+                
                 System.out.println("\nMessage à envoyer:\n");
             }
         } catch (Exception e) {
