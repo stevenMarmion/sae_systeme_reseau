@@ -7,6 +7,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,15 +59,20 @@ public class Session extends Thread{
                     System.out.println("<< Session.mainSession sort avec reponse : Bye !");
                     break;
                 }
+                else if(messageReconsituer.getContenu().toLowerCase().equals("/consulter")){
+                    String mes = this.serv.getMessageBDD().getMessageAbonnements(usernameClient);
+                    sortie.println(mes + "||newline||");
+                    sortie.flush();
+                }
                 else if (messageReconsituer.getContenu().startsWith("/")) {
                     this.serv.estUneCommandeExistante(messageReconsituer.getContenu().substring(1, messageReconsituer.getContenu().length()) + " " + 
                                                       messageReconsituer.getNomExpediteur());
-                    sortie.println("\nMessage reçu\n");
+                    sortie.println("Message reçu\n");
                     sortie.flush();
                 }
                 else{
                     this.serv.getMessageBDD().ajouterMessage(messageReconsituer);
-                    sortie.println("\nMessage reçu\n");
+                    sortie.println("Message reçu\n");
                     sortie.flush();
                 }
             }
@@ -82,12 +88,11 @@ public class Session extends Thread{
         List<String> listeLignes = new ArrayList<>();
         Collections.addAll(listeLignes, lignes);
         Message res = new Message(listeLignes.get(0), listeLignes.get(1), Integer.parseInt(listeLignes.get(3)));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         try {
-            Date date = formatter.parse(listeLignes.get(2));
-            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            Timestamp ts = Timestamp.valueOf(listeLignes.get(2));
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(ts.getTime());
             res.setDate(sqlDate);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         res.setId(Integer.parseInt(listeLignes.get(4)));

@@ -58,12 +58,12 @@ public class MessageBDD {
 		return res;
 	}
 
-    public Date getDate(int idMessage) throws SQLException {
+    public Timestamp getDate(int idMessage) throws SQLException {
 		System.out.println(">> MessageBDD.getDate entre avec le paramètre idMessage " + String.valueOf(idMessage));
 		st=connection.createStatement();
 		ResultSet rs = st.executeQuery("SELECT * FROM MESSAGE where id_message = " + String.valueOf(idMessage) + ";");
 		rs.next();
-		Date res = rs.getDate("date_creation");
+		Timestamp res = rs.getTimestamp("date_creation");
 		rs.close();
 		System.out.println(">> MessageBDD.getDate sort avec " + String.valueOf(res));
 		return res;
@@ -78,7 +78,7 @@ public class MessageBDD {
             ps.setString(1, message.getContenu());
 			ps.setString(2, message.getNomExpediteur());
 			System.out.println("avant date");
-            ps.setDate(3, message.getDate());
+            ps.setTimestamp(3, message.getDate());
 			System.out.println("apres date");
             ps.setInt(4, message.getNombreLike());
             ps.executeUpdate();
@@ -140,7 +140,44 @@ public class MessageBDD {
             System.out.println("<< ClientBDD.supprimerMessagesUtilisateur sort en exception");
             throw new SQLException("Mauvaise suppression");
         }
-    }    
+    }
+
+	public String getMessageAbonnements(String username) throws SQLException{
+		System.out.println(">> ClientBDD.getMessageAbonnments entre avec le paramètre username : " + username);
+		try {
+			PreparedStatement ps = connection.prepareStatement("select * from MESSAGE where expediteur in (select username from client where id in (select subscribed_to_id from ABONNEMENTS where subscriber_id in (select id from client where username = ?))) order by date_creation desc limit 20");
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			String mes="";
+			while (rs.next()) {
+				String contenu = rs.getString("contenu");
+				String expediteur = rs.getString("expediteur");
+				String bord_h = "=".repeat(52)+"||newline||";
+				mes+=" ".repeat(25)+expediteur+"||newline||";
+				mes+=bord_h;
+				while(contenu.length()>0){
+					if(contenu.length()>50){
+						mes+="|"+contenu.substring(0,50)+"| ||newline||";
+						contenu=contenu.substring(50);
+					}
+					else{
+						mes+="|"+contenu+" ".repeat(50-contenu.length())+"| ||newline||";
+						contenu="";
+					}
+				}
+				mes+="=".repeat(52)+"||newline||";
+				mes+="||newline||";
+				mes+="nombre de like : "+rs.getString("nombre_de_like")+"||newline||";
+				mes+="id : "+rs.getString("id_message")+"||newline||";
+				mes+="date : "+rs.getString("date_creation")+"||newline||";
+				mes+="||newline||";
+						}
+			return mes;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "erreur";
+		}
+	}
 
 }
 
