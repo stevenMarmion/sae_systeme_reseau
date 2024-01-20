@@ -53,7 +53,7 @@ public class Server {
 
     public void connecteServerBDD() throws ClassNotFoundException, SQLException {
         this.connectionBDD = new ConnectionBDD();
-        this.connectionBDD.connecter("localhost", "reseau_social", "steven", "s07012004");
+        this.connectionBDD.connecter("localhost", "reseau_social", "root", "simon");
         this.clientBDD = new ClientBDD(connectionBDD);
         this.messageBDD = new MessageBDD(connectionBDD);
     }
