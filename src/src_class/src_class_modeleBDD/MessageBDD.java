@@ -145,7 +145,7 @@ public class MessageBDD {
 	public String getMessageAbonnements(String username) throws SQLException{
 		System.out.println(">> ClientBDD.getMessageAbonnments entre avec le paramètre username : " + username);
 		try {
-			PreparedStatement ps = connection.prepareStatement("select * from MESSAGE where expediteur in (select username from client where id in (select subscribed_to_id from ABONNEMENTS where subscriber_id in (select id from client where username = ?))) order by date_creation desc limit 20");
+			PreparedStatement ps = connection.prepareStatement("select * from MESSAGE where expediteur in (select username from CLIENT where id in (select subscribed_to_id from ABONNEMENTS where subscriber_id in (select id from CLIENT where username = ?))) order by date_creation desc limit 20");
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 			String mes="";
@@ -174,7 +174,7 @@ public class MessageBDD {
 						}
 			return mes;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			return "erreur";
 		}
 	}
