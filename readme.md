@@ -34,7 +34,10 @@ L'application devra fonctions sous deux aspects :
 
 Il faut modifier le fichier `src/src_class/Server.java` a la ligne 56 `this.connectionBDD.connecter("localhost", "reseau_social", "root", "simon");`et mettre la database que vous souhaiter utiliser en second parametre, le nom d'utilisateur de la database en troisieme parametre et le mot de passe en quatrieme parametre.
 
-Avoir le driver `mariadb-java-client.jar` dans votre classpath.
+Avoir le driver `mariadb-java-client.jar` dans votre librairie.
+
+Pour lancer le serveur via VSCODE il faut juste lancer (avce la fleche en haut a droite ) le `src\src_main\MainTestServeur.java` pour le serveur et pour les Clients `src\src_main\MainTest1Client.java` pour le client1
+`src\src_main\MainTest2Client.java` pour le client2.
 
 # Lien git
 
