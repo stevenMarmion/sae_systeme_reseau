@@ -60,20 +60,26 @@ public class Session extends Thread{
                     break;
                 }
                 else if(messageReconsituer.getContenu().toLowerCase().equals("/consulter")){
+                    this.serv.getReentrantLock().lock();
                     String mes = this.serv.getMessageBDD().getMessageAbonnements(usernameClient);
                     sortie.println(mes + "||newline||");
                     sortie.flush();
+                    this.serv.getReentrantLock().unlock();
                 }
                 else if (messageReconsituer.getContenu().startsWith("/")) {
+                    this.serv.getReentrantLock().lock();
                     this.serv.estUneCommandeExistante(messageReconsituer.getContenu().substring(1, messageReconsituer.getContenu().length()) + " " + 
                                                       messageReconsituer.getNomExpediteur());
-                    sortie.println("Message reçu\n");
+                    sortie.println("Message reçu");
                     sortie.flush();
+                    this.serv.getReentrantLock().unlock();
                 }
                 else{
+                    this.serv.getReentrantLock().lock();
                     this.serv.getMessageBDD().ajouterMessage(messageReconsituer);
-                    sortie.println("Message reçu\n");
+                    sortie.println("Message reçu");
                     sortie.flush();
+                    this.serv.getReentrantLock().unlock();
                 }
             }
         }catch(Exception e){

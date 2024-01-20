@@ -22,6 +22,7 @@ import src_class.src_class_commande.CommandeFollow;
 import src_class.src_class_commande.CommandeLike;
 import src_class.src_class_commande.CommandeRemove;
 import src_class.src_class_commande.CommandeUnfollow;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Server {
     private InetAddress ipServer;
@@ -31,6 +32,8 @@ public class Server {
     private ClientBDD clientBDD;
     private MessageBDD messageBDD;
     private ConnectionBDD connectionBDD;
+    private ReentrantLock lock = new ReentrantLock();
+
 
     public Server(InetAddress ip, ArrayList<Commande> commandesServer, ArrayList<Commande> commandesClient) throws ClassNotFoundException, SQLException {
         this.ipServer = ip;
@@ -93,6 +96,10 @@ public class Server {
 
     public ClientBDD getClientBDD() {
         return this.clientBDD;
+    }
+
+    public synchronized ReentrantLock getReentrantLock(){
+        return this.lock;
     }
 
     public boolean setIpServer(InetAddress ip) throws ExceptionIpAlreadyDefined, ExceptionIpEmpty {
