@@ -105,6 +105,20 @@ public class MessageBDD {
 		st.close();
 	}
 
+	public void effacerMessageFromID(int idMessage) throws SQLException {
+		System.out.println(">> MessageBDD.effacerMessageFromID entre avec le paramètre idMessage " + idMessage);
+		st = connection.createStatement();
+		try {
+			st.executeQuery("delete from MESSAGE where id_message = '" + String.valueOf(idMessage) + "';");
+			System.out.println("<< MessageBDD.effacerMessageFromID sort avec le message " + idMessage + " supprimé");
+		}
+		catch (SQLException e){
+			System.out.println("<< MessageBDD.effacerMessageFromID sort par exeption");
+			throw new SQLException("Message inexistant dans la table");
+		}
+		st.close();
+	}
+
 	public void likerMessage(int idMessage) throws SQLException {
 		System.out.println(">> MessageBDD.likerMessage entre avec le paramètre idMessage : " + idMessage);
 		try {

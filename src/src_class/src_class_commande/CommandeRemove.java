@@ -65,8 +65,8 @@ public class CommandeRemove implements Commande {
   public String remove(String usernameToDelete) {
       String data;
       try {
-          this.serveur.getClientBDD().supprimerUtilisateur(usernameToDelete);
           this.serveur.getMessageBDD().supprimerMessagesUtilisateur(usernameToDelete);
+          this.serveur.getClientBDD().supprimerUtilisateur(usernameToDelete);
           data = "commande: \n type:'" + this.getNom() + "' \n username:'" + usernameToDelete +
                   "' \n utilisateurCommande = Serveur";
           return data;

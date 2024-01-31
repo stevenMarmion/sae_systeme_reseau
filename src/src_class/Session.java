@@ -56,6 +56,8 @@ public class Session extends Thread{
 
                 if(messageReconsituer.getContenu().startsWith("quit") || messageReconsituer.getContenu().startsWith("QUIT")){
                     System.out.println("<< Session.mainSession sort avec reponse : Bye !");
+                    sortie.println("Bye!" + "\n");
+                    sortie.flush();
                     break;
                 }
 

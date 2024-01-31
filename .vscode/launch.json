@@ -3,6 +3,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MainTestServeur",
+            "request": "launch",
+            "mainClass": "src_main.MainTestServeur",
+            "projectName": "sae_systeme_reseau_b6a18440"
+        },
+        {
+            "type": "java",
+            "name": "MainTestClient1",
+            "request": "launch",
+            "mainClass": "src_main.MainTestClient1",
+            "projectName": "sae_systeme_reseau_b6a18440"
+        },
+        {
+            "type": "java",
+            "name": "MainTestClient2",
+            "request": "launch",
+            "mainClass": "src_main.MainTestClient2",
+            "projectName": "sae_systeme_reseau_b6a18440"
+        },
+        {
+            "type": "java",
             "name": "MainTestClient1",
             "request": "launch",
             "mainClass": "src_main.MainTestClient1",
@@ -24,8 +45,6 @@
         },
         {
             "type": "java",
-<<<<<<< HEAD
-=======
             "name": "MainTestClient2",
             "request": "launch",
             "mainClass": "src_main.MainTestClient2",
@@ -61,7 +80,6 @@
         },
         {
             "type": "java",
->>>>>>> develop
             "name": "ClientTest",
             "request": "launch",
             "mainClass": "src_test.ClientTest",

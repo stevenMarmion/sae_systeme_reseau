@@ -271,6 +271,28 @@ public class ClientBDD {
         System.out.println(">> ClientBDD.supprimerUtilisateur entre avec le paramètre username : " + username);
         try {
             int idUtilisateur = getIdUtilisateurParUsername(username);
+            try (PreparedStatement ps = connection.prepareStatement(
+                        "DELETE FROM ABONNEMENTS WHERE subscriber_id = ?"
+            )) {
+                ps.setInt(1, idUtilisateur);
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("<< ClientBDD.supprimerAbonnement sort avec l'abonnement supprimé");
+                } else {
+                    System.out.println("<< ClientBDD.supprimerAbonnement sort avec une erreur - Aucune ligne supprimée");
+                }
+            }
+            try (PreparedStatement ps = connection.prepareStatement(
+                "DELETE FROM ABONNEMENTS WHERE subscribed_to_id = ?"
+            )) {
+                ps.setInt(1, idUtilisateur);
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("<< ClientBDD.supprimerAbonnement sort avec l'abonnement supprimé");
+                } else {
+                    System.out.println("<< ClientBDD.supprimerAbonnement sort avec une erreur - Aucune ligne supprimée");
+                }
+            }
             if (idUtilisateur != -1) {
                 try (PreparedStatement ps = connection.prepareStatement(
                         "DELETE FROM CLIENT WHERE id = ?"
@@ -282,7 +304,6 @@ public class ClientBDD {
                         return username;
                     } else {
                         System.out.println("<< ClientBDD.supprimerUtilisateur sort avec une erreur - Aucune ligne supprimée");
-                        throw new SQLException("Aucune ligne supprimée");
                     }
                 }
             } else {
@@ -294,6 +315,7 @@ public class ClientBDD {
             System.out.println("<< ClientBDD.supprimerUtilisateur sort en exception");
             throw new SQLException("Mauvaise suppression");
         }
+        return username;
     }
 
     public void supprimerAbonnement(String utilisateurQuiSDesAbonne, String utilisateurSuivi) throws SQLException {

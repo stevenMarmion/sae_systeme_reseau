@@ -1,3 +1,3 @@
-source script_destruction_BDD_table.sql;
-source script_creation_BDD_table.sql;
-source script_insert.sql;
+source DB/script_destruction_BDD_table.sql;
+source DB/script_creation_BDD_table.sql;
+source DB/script_insert.sql;

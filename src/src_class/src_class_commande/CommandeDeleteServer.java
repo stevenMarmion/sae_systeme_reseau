@@ -50,11 +50,13 @@ public class CommandeDeleteServer implements Commande {
   @Override
   public String agis(String param, String username) {
       try {
+        System.out.println(">> CommandeDeleteServeur.agis entre avec les paramètres : " + param + " et " + username);
           Integer idMessage = Integer.parseInt(param);
           Client clientWithUsername = this.serveur.getClientBDD().getClient(username);
           return this.deleteMessageByServeur(clientWithUsername, idMessage);
       } catch (Exception e) {
-          // Gérer l'exception, éventuellement journaliser l'erreur.
+        System.out.println(">> CommandeDeleteServeur.agis sort en exception");
+        e.printStackTrace();
       }
       return null;
   }
@@ -68,7 +70,8 @@ public class CommandeDeleteServer implements Commande {
    */
   public String deleteMessageByServeur(Client client, int idMessage) {
       try {
-          this.serveur.getMessageBDD().effacerMessage(idMessage, client.getUsername());
+        System.out.println(">> CommandeDeleteServeur.deleteMessageByServeur entre avec les paramètres : " + client.getUsername() + " et " + idMessage);
+          this.serveur.getMessageBDD().effacerMessageFromID(idMessage);
           String data = "commande: \n type:'" + this.getNom() + "' \n idMessage:'" + idMessage +
                   "' \n utilisateurCommande = Serveur";
           return data;

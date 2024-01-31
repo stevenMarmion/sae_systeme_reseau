@@ -53,7 +53,7 @@ public class Server {
 
     public void connecteServerBDD() throws ClassNotFoundException, SQLException {
         this.connectionBDD = new ConnectionBDD();
-        this.connectionBDD.connecter("localhost", "reseau_social", "root", "simon");
+        this.connectionBDD.connecter("servinfo-maria", "DBmarmion", "marmion", "marmion");
         this.clientBDD = new ClientBDD(connectionBDD);
         this.messageBDD = new MessageBDD(connectionBDD);
     }
@@ -202,16 +202,33 @@ public class Server {
             System.out.println("<< Server.estUneCommandeExistante sort sans supprimé");
             return null;
         }
-        for (Commande commandeClient : getCommandesClient()) {
-            if (commandeClient.getNom().equals(commande)) {
-                String response = commandeClient.agis(param, username);
-                if (response == null) {
-                    System.out.println("<< Server.estUneCommandeExistante sort sans supprimé");
-                    return null;
+        if (username.equals("serveur")) { // admin
+            for (Commande commandeAdmin : getCommandesServer()) {
+                if (commandeAdmin.getNom().equals(commande)) {
+                    String response = commandeAdmin.agis(param, username);
+                    if (response == null) {
+                        System.out.println("<< Server.estUneCommandeExistante sort sans supprimé");
+                        return null;
+                    }
+                    else {
+                        System.out.println("<< Server.estUneCommandeExistante sort en ayant supprimé");
+                        return "Action réussi !";
+                    }
                 }
-                else {
-                    System.out.println("<< Server.estUneCommandeExistante sort en ayant supprimé");
-                    return "Action réussi !";
+            }
+        }
+        else {
+            for (Commande commandeClient : getCommandesClient()) {
+                if (commandeClient.getNom().equals(commande)) {
+                    String response = commandeClient.agis(param, username);
+                    if (response == null) {
+                        System.out.println("<< Server.estUneCommandeExistante sort sans supprimé");
+                        return null;
+                    }
+                    else {
+                        System.out.println("<< Server.estUneCommandeExistante sort en ayant supprimé");
+                        return "Action réussi !";
+                    }
                 }
             }
         }
